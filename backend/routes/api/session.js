@@ -4,10 +4,38 @@ const bcrypt = require("bcryptjs");
 
 const { setTokenCookie, restoreUser } = require("../../utils/auth");
 const { User } = require("../../db/models");
-
+const { check } = require("express-validator");
+const { handleValidationErrors } = require("../../utils/validation");
 const router = express.Router();
 
-router.post("/", async (req, res, next) => {
+
+// The check func from express-validator will use handleValidationErrors to validate req body
+// POST /api/session route will expect the req body to have a credential key with either
+//   username or email of user and a password key.
+
+const validateLogin = [
+  check("credential")
+    .exists({ checkFalsy: true })
+    .notEmpty()
+    .withMessage("Please provide a valid email or username."),
+  check("password")
+    .exists({ checkFalsy: true })
+    .withMessage("Please provide a password."),
+  handleValidationErrors,
+];
+
+// the above middleware checks whether or not req.body.credential and req.body.password are empty. If one is,
+//      this middleware will return an error as response.
+
+
+
+
+
+
+
+router.post("/",
+    validateLogin,
+    async (req, res, next) => {
   const { credential, password } = req.body;
 
   const user = await User.unscoped().findOne({
@@ -58,5 +86,7 @@ router.get("/", (req, res) => {
     });
   } else return res.json({ user: null });
 });
+
+
 
 module.exports = router;
