@@ -13,6 +13,33 @@ module.exports = (sequelize, DataTypes) => {
   }
   User.init(
     {
+      firstName: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          isNotEmail(value) {
+            if (Validator.isEmail(value)) {
+              throw new Error("First name cannot be an email");
+            }
+          },
+          len: [3, 30],
+          isAlpha: true,
+        },
+      },
+      lastName: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          isNotEmail(value) {
+            if (Validator.isEmail(value)) {
+              throw new Error("Last name cannot be an email");
+            }
+          },
+          len: [3, 30],
+          isAlpha: true,
+        },
+      },
+
       username: {
         type: DataTypes.STRING,
         allowNull: false,
