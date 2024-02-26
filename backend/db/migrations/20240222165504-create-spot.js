@@ -1,19 +1,15 @@
 "use strict";
 
-// const { process_params } = require("express/lib/router")
-
 let options = {};
 if (process.env.NODE_ENV === "production") {
   options.schema = process.env.SCHEMA; // defines the schema in options object
 }
 
-const { User } = require("../models");
-
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable(
-      "Bookings",
+      "Spots",
       {
         id: {
           allowNull: false,
@@ -21,26 +17,51 @@ module.exports = {
           primaryKey: true,
           type: Sequelize.INTEGER,
         },
-        spotId: {
+        ownerId: {
           type: Sequelize.INTEGER,
           allowNull: false,
-          // unique: true,
-        },
-        userId: {
-          type: Sequelize.INTEGER,
-          allowNull: false,
-          // unique: true,
           references: {
             model: "Users",
             key: "id",
           },
+          onDelete: "CASCADE",
         },
-        startDate: {
-          type: Sequelize.DATEONLY,
+        address: {
+          type: Sequelize.STRING,
           allowNull: false,
         },
-        endDate: {
-          type: Sequelize.DATEONLY,
+        city: {
+          type: Sequelize.STRING,
+          allowNull: false,
+        },
+        state: {
+          type: Sequelize.STRING,
+          allowNull: false,
+        },
+        country: {
+          type: Sequelize.STRING,
+          allowNull: false,
+        },
+        lat: {
+          type: Sequelize.NUMERIC,
+          allowNull: false,
+          unique: true,
+        },
+        lng: {
+          type: Sequelize.NUMERIC,
+          allowNull: false,
+          unique: true,
+        },
+        name: {
+          type: Sequelize.STRING,
+          allowNull: false,
+        },
+        description: {
+          type: Sequelize.STRING,
+          allowNull: false,
+        },
+        price: {
+          type: Sequelize.NUMERIC,
           allowNull: false,
         },
         createdAt: {
@@ -56,19 +77,9 @@ module.exports = {
       },
       options
     );
-    await queryInterface.addConstraint("Bookings", {
-      type: "unique",
-      fields: ["spotId", "userId", "startDate", "endDate"],
-      name: "unique_booking_for_user_and_spot_and_dates",
-    });
-    await queryInterface.addConstraint("Bookings", {
-      type: 'unique',
-      fields: ['spotId', 'startDate'],
-      name: 'unique_spot_date_booking'
-    })
   },
   async down(queryInterface, Sequelize) {
-    options.tableName = "Bookings";
+    options.tableName = "Spots";
     await queryInterface.dropTable(options);
   },
 };
