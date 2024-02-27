@@ -6,9 +6,7 @@ const { User } = require("../../db/models");
 const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
 
-
 const router = express.Router();
-
 
 const validateSignup = [
   check("firstName")
@@ -37,31 +35,52 @@ const validateSignup = [
   handleValidationErrors,
 ];
 
+router.post("/", validateSignup, async (req, res) => {
+  try {
+    const { firstName, lastName, email, password, username } = req.body;
+    const hashedPassword = bcrypt.hashSync(password);
+    const user = await User.create({
+      firstName,
+      lastName,
+      email,
+      username,
+      hashedPassword,
+    });
 
-
-
-
-
-router.post("/",
-    validateSignup,
-    async (req, res) => {
-  const { firstName, lastName, email, password, username } = req.body;
-  const hashedPassword = bcrypt.hashSync(password);
-  const user = await User.create({ firstName, lastName, email, username, hashedPassword });
-
-  const safeUser = {
+    const safeUser = {
       id: user.id,
       firstName: user.firstName,
-    lastName: user.lastName,
-    email: user.email,
-    username: user.username,
-  };
+      lastName: user.lastName,
+      email: user.email,
+      username: user.username,
+    };
 
-  await setTokenCookie(res, safeUser);
+    await setTokenCookie(res, safeUser);
 
-  return res.json({
-    user: safeUser,
-  });
+    return res.json({
+      user: safeUser,
+    });
+  } catch (error) {
+    if (error.name === "SequelizeUniqueConstraintError") {
+      if (error.errors[0].path === "email") {
+        // Handle the case where the email is already taken
+        return res.status(500).json({
+          message: "User already exists",
+          errors: {
+            email: "User with that email already exists",
+          },
+        });
+      } else if (error.errors[0].path === "username") {
+        // Handle the case where the username is already taken
+        return res.status(500).json({
+          message: "User already exists",
+          errors: {
+            username: "User with that username already exists",
+          },
+        });
+      }
+    }
+  }
 });
 
 module.exports = router;
