@@ -35,7 +35,42 @@ const validateSignup = [
   handleValidationErrors,
 ];
 
-router.post("/", validateSignup, async (req, res) => {
+const checkEmail = async (req, res, next) => {
+  const { email } = req.body;
+  const existing = await User.findOne({
+    where: { email: email },
+  });
+  if (existing) {
+    res.status(400).json({
+      message: "User already exists",
+      errors: {
+        email: "User with that email already exists",
+      },
+    });
+    return;
+  }
+  next();
+};
+
+const checkUN = async (req, res, next) => {
+  const { username } = req.body;
+  const existingUN = await User.findOne({
+    where: { username: username },
+  });
+
+  if (existingUN) {
+    res.status(400).json({
+      message: "User already exists",
+      errors: {
+        username: "User with that username already exists",
+      },
+    });
+    return;
+  }
+  next();
+};
+
+router.post("/", validateSignup,checkEmail,checkUN, async (req, res) => {
   try {
     const { firstName, lastName, email, password, username } = req.body;
     const hashedPassword = bcrypt.hashSync(password);
@@ -61,25 +96,25 @@ router.post("/", validateSignup, async (req, res) => {
       user: safeUser,
     });
   } catch (error) {
-    if (error.name === "SequelizeUniqueConstraintError") {
-      if (error.errors[0].path === "email") {
-        // Handle the case where the email is already taken
-        return res.status(500).json({
-          message: "User already exists",
-          errors: {
-            email: "User with that email already exists",
-          },
-        });
-      } else if (error.errors[0].path === "username") {
-        // Handle the case where the username is already taken
-        return res.status(500).json({
-          message: "User already exists",
-          errors: {
-            username: "User with that username already exists",
-          },
-        });
-      }
-    }
+    // if (error.name === "SequelizeUniqueConstraintError") {
+    //   if (error.errors[0].path === "email") {
+    //     // Handle the case where the email is already taken
+    //     return res.status(500).json({
+    //       message: "User already exists",
+    //       errors: {
+    //         email: "User with that email already exists",
+    //       },
+    //     });
+    //   } else if (error.errors[0].path === "username") {
+    //     // Handle the case where the username is already taken
+    //     return res.status(500).json({
+    //       message: "User already exists",
+    //       errors: {
+    //         username: "User with that username already exists",
+    //       },
+    //     });
+    //   }
+    // }
   }
 });
 
