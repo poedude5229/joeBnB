@@ -34,6 +34,16 @@ module.exports = {
           url: "https://photos.zillowstatic.com/fp/1d3932fa7386493e3b213cfcd8ee57da-uncropped_scaled_within_1536_1152.webp",
           preview: true,
         },
+        {
+          spotId: 3,
+          url: "https://ap.rdcpix.com/97597954d01ad109654da6b7aeb3b8dal-m1419331428od-w1024_h768_x2.webp?w=750&q=75",
+          preview: true,
+        },
+        {
+          spotId: 4,
+          url: "https://ap.rdcpix.com/d296c40d2887f04a80c1cead540c7583l-b523895560od-w480_h360_x2.webp?w=640&q=75",
+          preview: true,
+        },
       ],
       {
         validate: true,
