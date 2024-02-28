@@ -5,23 +5,38 @@ const { requireAuth } = require("../../utils/auth");
 
 const { Spot, Review, SpotImage } = require("../../db/models");
 
-router.get("/current", requireAuth, async (req, res) => {
-  try {
-    // Get the currently logged-in user's ID
-    const userId = req.user.id;
+router.get("/:spotId", async (req, res) => {
+  let { spotId } = req.params;
 
-    // Find all spots owned by the currently logged-in user
-    const spots = await Spot.findAll({
-      where: {
-        ownerId: userId,
-      },
+  let spot = await Spot.findOne({
+    where: {
+      id: spotId,
+    },
+  });
+  if (!spot) {
+    return res.status(404).json({
+      message: "Spot couldn't be found",
     });
-
-    res.status(200).json({ Spots: spots });
-  } catch (error) {
-    console.error("Error retrieving spots:", error);
-    res.status(500).json({ message: "Internal server error" });
   }
+  return res.status(200).json(spot);
+});
+router.get("/current", requireAuth, async (req, res) => {
+  // try {
+  // Get the currently logged-in user's ID
+  const userId = req.user.id;
+
+  // Find all spots owned by the currently logged-in user
+  const spots = await Spot.findAll({
+    where: {
+      ownerId: userId,
+    },
+  });
+
+  res.status(200).json({ Spots: spots });
+  // } catch (error) {
+  //   console.error("Error retrieving spots:", error);
+  //   res.status(500).json({ message: "Internal server error" });
+  // }
 });
 
 router.get("/", async (req, res) => {
@@ -76,5 +91,11 @@ router.get("/", async (req, res) => {
   //  }
   res.status(200).json({ Spots: fixed });
 });
+
+// router.post("/", requireAuth, async (req, res) => {
+//   let { address, city, state, country, lat, lng, name, description, price } = req.body;
+
+
+// });
 
 module.exports = router;
