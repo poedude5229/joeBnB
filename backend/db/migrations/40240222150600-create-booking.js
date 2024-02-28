@@ -28,8 +28,8 @@ module.exports = {
           references: {
             model: "Spots",
             key: "id",
-            onDelete: "CASCADE"
           },
+          onDelete: "CASCADE"
         },
         userId: {
           type: Sequelize.INTEGER,
@@ -38,8 +38,8 @@ module.exports = {
           references: {
             model: "Users",
             key: "id",
-            onDelete: "CASCADE"
           },
+          onDelete: "CASCADE"
         },
         startDate: {
           type: Sequelize.DATEONLY,

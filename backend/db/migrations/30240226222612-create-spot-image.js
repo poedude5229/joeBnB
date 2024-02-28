@@ -23,8 +23,8 @@ module.exports = {
           references: {
             model: "Spots",
             key: "id",
-            onDelete: "CASCADE"
           },
+          onDelete: "CASCADE"
         },
         url: {
           type: Sequelize.STRING,
