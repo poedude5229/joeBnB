@@ -9,6 +9,7 @@ const {
   SpotImage,
   User,
   ReviewImage,
+  Booking,
 } = require("../../db/models");
 
 const reviewCheckMW = (req, res, next) => {
@@ -25,8 +26,6 @@ const reviewCheckMW = (req, res, next) => {
   }
   next();
 };
-
-
 
 router.get("/", async (req, res) => {
   let spots = await Spot.findAll({});
@@ -345,8 +344,6 @@ router.post("/:spotId/images", requireAuth, async (req, res) => {
   });
 });
 
-
-
 router.post("/", requireAuth, validateSpot, async (req, res) => {
   let { address, city, state, country, lat, lng, name, description, price } =
     req.body;
@@ -407,6 +404,60 @@ router.get("/:spotId/reviews", async (req, res) => {
     ReviewImages: review.ReviewImages,
   }));
   res.status(200).json({ Reviews: response });
+});
+
+router.get("/:spotId/bookings", requireAuth, async (req, res) => {
+  let { spotId } = req.params;
+  let spot = await Spot.findByPk(spotId);
+
+  if (!spot) {
+    return res.status(404).json({
+      message: "Spot couldn't be found",
+    });
+  }
+
+  if (spot.ownerId === req.user.id) {
+    let bookings = await Booking.findAll({
+      where: { spotId },
+      include: {
+        model: User,
+        attributes: ["id", "firstName", "lastName"],
+      },
+    });
+    let response = {
+      Bookings: bookings.map((booking) => ({
+        User: {
+          id: booking.User.id,
+          firstName: booking.User.firstName,
+          lastName: booking.User.lastName,
+        },
+        id: booking.id,
+        spotId: booking.spotId,
+        userId: booking.userId,
+        startDate: booking.startDate,
+        endDate: booking.endDate,
+        createdAt: booking.createdAt,
+        updatedAt: booking.createdAt,
+      })),
+    };
+    res.status(200).json(response);
+  } else {
+    let bookings = await Booking.findAll({
+      where: {
+        spotId,
+      },
+      attributes: ["spotId", "startDate", "endDate"],
+    });
+
+    let response = {
+      Bookings: bookings.map((booking) => ({
+        spotId: booking.spotId,
+        startDate: booking.startDate,
+        endDate: booking.endDate
+      })),
+    };
+    res.status(200).json(response)
+  }
 });
 
 router.post(
