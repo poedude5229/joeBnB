@@ -42,36 +42,38 @@ module.exports = (sequelize, DataTypes) => {
       },
       startDate: {
         type: DataTypes.DATEONLY,
-        validate: {
-          isDate: true, //'2/23/24',
-          isAfter: "2024-02-22",
-          // async isStartDatevalid(value) {
-          //   await Booking.findOne({
-          //     where: {
-          //       spotId: this.spotId,
-          //       endDate: {
-          //         [Op.gt]: value
-          //       }
-          //     }
-          //   }).then((existingBooking) => {
-          //     if (existingBooking) {
-          //       throw new Error("Start date conflicts with an existing booking")
-          //     }
-          //   })
-          // }
-          //
-        },
+        allowNull: false,
+        // validate: {
+        //   isDate: true, //'2/23/24',
+        //   isAfter: "2024-02-22",
+        //   // async isStartDatevalid(value) {
+        //   //   await Booking.findOne({
+        //   //     where: {
+        //   //       spotId: this.spotId,
+        //   //       endDate: {
+        //   //         [Op.gt]: value
+        //   //       }
+        //   //     }
+        //   //   }).then((existingBooking) => {
+        //   //     if (existingBooking) {
+        //   //       throw new Error("Start date conflicts with an existing booking")
+        //   //     }
+        //   //   })
+        //   // }
+        //   //
+        // },
       },
       endDate: {
         type: DataTypes.DATEONLY,
-        validate: {
-          isDate: true,
-          isAfterstartDate(value) {
-            if (value <= this.startDate) {
-              throw new Error("End date must be after start date")
-            }
-          },
-        },
+        allowNull: false,
+        // validate: {
+        //   isDate: true,
+        //   isAfterstartDate(value) {
+        //     if (value <= this.startDate) {
+        //       throw new Error("End date must be after start date")
+        //     }
+        //   },
+        // },
       },
     },
     {

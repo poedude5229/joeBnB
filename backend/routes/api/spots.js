@@ -453,10 +453,10 @@ router.get("/:spotId/bookings", requireAuth, async (req, res) => {
       Bookings: bookings.map((booking) => ({
         spotId: booking.spotId,
         startDate: booking.startDate,
-        endDate: booking.endDate
+        endDate: booking.endDate,
       })),
     };
-    res.status(200).json(response)
+    res.status(200).json(response);
   }
 });
 
@@ -505,5 +505,77 @@ router.post(
     });
   }
 );
+
+router.post("/:spotId/bookings", requireAuth, async (req, res) => {
+  let { spotId } = req.params;
+  let { startDate, endDate } = req.body;
+
+  let spot = await Spot.findByPk(spotId);
+
+  if (!spot) {
+    return res.status(404).json({message: "Spot couldn't be found"})
+  }
+
+  if (spot.ownerId === req.user.id) {
+  return res.status(403).json({message: "Forbidden"})
+}
+ if (
+   new Date(startDate) < new Date() ||
+   new Date(endDate) <= new Date(startDate)
+ ) {
+   return res.status(400).json({
+     message: "Bad Request",
+     errors: {
+       startDate: "startDate cannot be in the past",
+       endDate: "endDate cannot be on or before startDate",
+     },
+   });
+ }
+
+//  if (new Date(endDate) <= new Date(startDate)) {
+//    return res
+//      .status(400)
+//      .json({
+//        message: "Bad Request",
+//        errors: { endDate: "endDate cannot be on or before startDate" },
+//      });
+//  }
+
+ // Check for booking conflict
+ let existingBooking = await Booking.findOne({
+   where: {
+     spotId,
+     [Op.or]: [
+       { startDate: { [Op.between]: [startDate, endDate] } },
+       { endDate: { [Op.between]: [startDate, endDate] } },
+     ],
+   },
+ });
+
+ if (existingBooking) {
+   return res.status(403).json({
+     message: "Sorry, this spot is already booked for the specified dates",
+     errors: {
+       startDate: "Start date conflicts with an existing booking",
+       endDate: "End date conflicts with an existing booking",
+     },
+   });
+ }
+  if (spot.ownerId !== req.user.id) {
+    let newBooking = await Booking.create({
+      spotId,
+      userId: req.user.id,
+      startDate,
+      endDate,
+    });
+
+    let response = {
+      startDate: newBooking.startDate,
+      endDate: newBooking.endDate,
+    };
+
+    res.status(200).json(response);
+  }
+});
 
 module.exports = router;
