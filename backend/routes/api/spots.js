@@ -69,7 +69,7 @@ router.delete("/:spotId", requireAuth, async (req, res) => {
   }
 
   if (spot.ownerId !== req.user.id) {
-    return res.status(403).json({message: "Not authorized"})
+    return res.status(403).json({message: "Forbidden"})
   }
 
   await spot.destroy();
@@ -179,7 +179,7 @@ const validateSpot = (req, res, next) => {
 };
 
 router.get("/:spotId", async (req, res) => {
-  try {
+  // try {
     let { spotId } = req.params;
 
     // Find the spot by its ID
@@ -239,10 +239,10 @@ router.get("/:spotId", async (req, res) => {
 
     // Return the spot with the calculated data
     res.status(200).json(responseData);
-  } catch (error) {
-    console.error("Error retrieving spot:", error);
-    res.status(500).json({ message: "Internal server error" });
-  }
+  // } catch (error) {
+  //   console.error("Error retrieving spot:", error);
+  //   res.status(500).json({ message: "Internal server error" });
+  // }
 });
 
 router.put("/:spotId", requireAuth, validateSpot, async (req, res) => {
@@ -270,7 +270,7 @@ router.put("/:spotId", requireAuth, validateSpot, async (req, res) => {
 
   if (spot.ownerId !== req.user.id) {
     return res.status(403).json({
-      message: "Not authorized"
+      message: "Forbidden"
     })
   }
 
@@ -314,7 +314,7 @@ router.post("/:spotId/images", requireAuth, async (req, res) => {
   if (spot.ownerId !== req.user.id) {
     return res
       .status(403)
-      .json({ message: "Unauthorized - Spot does not belong to current user" });
+      .json({ message: "Forbidden" });
   }
 
   let newImage = await SpotImage.create({
@@ -349,5 +349,8 @@ router.post("/", requireAuth, validateSpot, async (req, res) => {
 
   res.status(201).json(newSpot);
 });
+
+
+
 
 module.exports = router;
