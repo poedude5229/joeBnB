@@ -4,9 +4,10 @@
 
 let options = {};
 if (process.env.NODE_ENV === "production") {
-  options.schema = process.env.SCHEMA; // defines the schema in options object
+  options.schema = process.env.SCHEMA;
+  // defines the schema in options object
 }
-
+options.tableName = "Bookings";
 const { User } = require("../models");
 
 /** @type {import('sequelize-cli').Migration} */
@@ -62,19 +63,19 @@ module.exports = {
       },
       options
     );
-    await queryInterface.addConstraint("Bookings", {
+    await queryInterface.addConstraint(options, {
       type: "unique",
       fields: ["spotId", "userId", "startDate", "endDate"],
       name: "unique_booking_for_user_and_spot_and_dates",
     });
-    await queryInterface.addConstraint("Bookings", {
+    await queryInterface.addConstraint(options, {
       type: "unique",
       fields: ["spotId", "startDate"],
       name: "unique_spot_date_booking",
     });
   },
   async down(queryInterface, Sequelize) {
-    options.tableName = "Bookings";
+    // options.tableName = "Bookings";
     await queryInterface.dropTable(options);
   },
 };
