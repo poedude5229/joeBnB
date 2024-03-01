@@ -83,10 +83,10 @@ module.exports = (sequelize, DataTypes) => {
       price: {
         type: DataTypes.NUMERIC,
         allowNull: false,
-        validate: {
-          min: 1,
-          max: 300,
-        },
+        // validate: {
+        //   min: 1,
+        //   max: 300,
+        // },
       },
     },
     {
