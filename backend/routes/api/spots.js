@@ -13,6 +13,14 @@ const {
   Booking,
 } = require("../../db/models");
 
+const formatAmericanDate = (date) => {
+  const formattedDate = new Date(date);
+  const month = formattedDate.getMonth() + 1;
+  const day = formattedDate.getDate();
+  const year = formattedDate.getFullYear();
+  return `${month}/${day}/${year}`;
+};
+
 const checkQuery = [
   query("page")
     .optional()
@@ -144,13 +152,13 @@ router.get("/", checkQuery, handleValidationErrors, async (req, res) => {
       city: spot.city,
       state: spot.state,
       country: spot.country,
-      lat: spot.lat,
-      lng: spot.lng,
+      lat: +spot.lat,
+      lng: +spot.lng,
       name: spot.name,
       description: spot.description,
-      price: spot.price,
-      createdAt: spot.createdAt,
-      updatedAt: spot.updatedAt,
+      price: +spot.price,
+      createdAt: formatAmericanDate(spot.createdAt),
+      updatedAt: formatAmericanDate(spot.updatedAt),
       avgRating: spot.avgRating || 0,
       previewImage: spot.previewImage ? spot.previewImage.url : null,
 
@@ -224,14 +232,14 @@ router.get("/current", requireAuth, async (req, res) => {
       city: spot.city,
       state: spot.state,
       country: spot.country,
-      lat: spot.lat,
-      lng: spot.lng,
+      lat: +spot.lat,
+      lng: +spot.lng,
       name: spot.name,
       description: spot.description,
-      price: spot.price,
-      createdAt: spot.createdAt,
-      updatedAt: spot.updatedAt,
-      avgRating: spot.avgRating || 0,
+      price: +spot.price,
+      createdAt: formatAmericanDate(spot.createdAt),
+      updatedAt: formatAmericanDate(spot.updatedAt),
+      avgRating: +spot.avgRating || 0,
       previewImage: spot.previewImage ? spot.previewImage.url : null,
     };
   });
@@ -328,13 +336,13 @@ router.get("/:spotId", async (req, res) => {
     city: spot.city,
     state: spot.state,
     country: spot.country,
-    lat: spot.lat,
-    lng: spot.lng,
+    lat: +spot.lat,
+    lng: +spot.lng,
     name: spot.name,
     description: spot.description,
-    price: spot.price,
-    createdAt: spot.createdAt,
-    updatedAt: spot.updatedAt,
+    price: +spot.price,
+    createdAt: formatAmericanDate(spot.createdAt),
+    updatedAt: formatAmericanDate(spot.updatedAt),
     avgRating: spot.avgRating || 0,
     SpotImages: spot.SpotImages,
   };
@@ -385,13 +393,13 @@ router.put("/:spotId", requireAuth, validateSpot, async (req, res) => {
     city: spot.city,
     state: spot.state,
     country: spot.country,
-    lat: spot.lat,
-    lng: spot.lng,
+    lat: +spot.lat,
+    lng: +spot.lng,
     name: spot.name,
     description: spot.description,
-    price: spot.price,
-    createdAt: spot.createdAt,
-    updatedAt: spot.updatedAt,
+    price: +spot.price,
+    createdAt: formatAmericanDate(spot.createdAt),
+    updatedAt: formatAmericanDate(spot.updatedAt),
     // avgRating: spot.avgRating || 0,
     // SpotImages: spot.SpotImages,
   };
@@ -477,8 +485,8 @@ router.get("/:spotId/reviews", async (req, res) => {
     spotId: review.spotId,
     review: review.review,
     stars: review.stars,
-    createdAt: review.createdAt,
-    updatedAt: review.updatedAt,
+    createdAt: formatAmericanDate(review.createdAt),
+    updatedAt: formatAmericanDate(review.updatedAt),
     User: {
       id: review.User.id,
       firstName: review.User.firstName,
@@ -510,17 +518,17 @@ router.get("/:spotId/bookings", requireAuth, async (req, res) => {
     let response = {
       Bookings: bookings.map((booking) => ({
         User: {
-          id: booking.User.id,
+          id: +booking.User.id,
           firstName: booking.User.firstName,
           lastName: booking.User.lastName,
         },
         id: booking.id,
-        spotId: booking.spotId,
-        userId: booking.userId,
-        startDate: booking.startDate,
-        endDate: booking.endDate,
-        createdAt: booking.createdAt,
-        updatedAt: booking.createdAt,
+        spotId: +booking.spotId,
+        userId: +booking.userId,
+        startDate: formatAmericanDate(booking.startDate),
+        endDate: formatAmericanDate(booking.endDate),
+        createdAt: formatAmericanDate(booking.createdAt),
+        updatedAt: formatAmericanDate(booking.createdAt),
       })),
     };
     res.status(200).json(response);
@@ -535,8 +543,8 @@ router.get("/:spotId/bookings", requireAuth, async (req, res) => {
     let response = {
       Bookings: bookings.map((booking) => ({
         spotId: booking.spotId,
-        startDate: booking.startDate,
-        endDate: booking.endDate,
+        startDate: formatAmericanDate(booking.startDate),
+        endDate: formatAmericanDate(booking.endDate),
       })),
     };
     res.status(200).json(response);
@@ -578,13 +586,13 @@ router.post(
     });
 
     res.status(201).json({
-      id: newReview.id,
-      userId: newReview.userId,
-      spotId: newReview.spotId,
+      id: +newReview.id,
+      userId: +newReview.userId,
+      spotId: +newReview.spotId,
       review: newReview.review,
-      stars: newReview.stars,
-      createdAt: newReview.createdAt,
-      updatedAt: newReview.updatedAt,
+      stars: +newReview.stars,
+      createdAt: formatAmericanDate(newReview.createdAt),
+      updatedAt: formatAmericanDate(newReview.updatedAt),
     });
   }
 );
@@ -655,8 +663,8 @@ router.post("/:spotId/bookings", requireAuth, async (req, res) => {
     });
 
     let response = {
-      startDate: newBooking.startDate,
-      endDate: newBooking.endDate,
+      startDate: formatAmericanDate(newBooking.startDate),
+      endDate: formatAmericanDate(newBooking.endDate),
     };
 
     res.status(200).json(response);
