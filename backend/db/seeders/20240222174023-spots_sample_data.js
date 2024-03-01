@@ -75,6 +75,19 @@ module.exports = {
             "Built in 2010, and sited atop a hill overlooking 111 acres of forest and beyond, this is the home you've dreamed of. Almost 16,000 sq ft of luxury combined with a dual bath and private outdoor hot tub primary suite, saltwater infinity pool, full-feature home gym, and 3,000 bottle wine cellar. Experience tranquility and convenience next to the Summersville Lake State Park and near the Greenbrier Resort",
           price: 300,
         },
+        {
+          ownerId: 2,
+          address: "390 Oakmont Road",
+          city: "Wheeling",
+          state: "West Virginia",
+          country: "USA",
+          //40.07020545721412, -80.66824824827728
+          lat: 40.07020545721412,
+          lng: -80.66824824827728,
+          name: "Wheeling Dwelling",
+          description: "Welcome to your get away. 8 beds and 12 baths built over 8,331 square feet, your family will never run out of room on this staycation",
+          price: 100
+        },
       ],
       {
         validate: true,
