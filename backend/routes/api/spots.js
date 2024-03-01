@@ -521,7 +521,8 @@ router.post("/:spotId/bookings", requireAuth, async (req, res) => {
 }
  if (
    new Date(startDate) < new Date() ||
-   new Date(endDate) <= new Date(startDate)
+   new Date(endDate) <= new Date(startDate) ||
+   !startDate || !endDate
  ) {
    return res.status(400).json({
      message: "Bad Request",
