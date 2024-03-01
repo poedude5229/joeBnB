@@ -46,9 +46,9 @@ module.exports = {
           defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
         },
       },
-      {
-        validate: true,
-      },
+      // {
+      //   validate: true,
+      // },
       options
     );
   },
