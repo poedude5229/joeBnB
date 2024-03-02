@@ -161,7 +161,6 @@ router.get("/", checkQuery, handleValidationErrors, async (req, res) => {
       updatedAt: formatAmericanDate(spot.updatedAt),
       avgRating: spot.avgRating || 0,
       previewImage: spot.previewImage ? spot.previewImage.url : null,
-
     };
   });
   //  // Add avgRating and previewImage to the spot object
@@ -663,8 +662,13 @@ router.post("/:spotId/bookings", requireAuth, async (req, res) => {
     });
 
     let response = {
+      id: newBooking.id,
+      spotId: newBooking.spotId,
+      userId: newBooking.userId,
       startDate: formatAmericanDate(newBooking.startDate),
       endDate: formatAmericanDate(newBooking.endDate),
+      createdAt: formatAmericanDate(newBooking.createdAt),
+      updatedAt: formatAmericanDate(newBooking.updatedAt),
     };
 
     res.status(200).json(response);
