@@ -112,7 +112,7 @@ router.put(
   handleValidationErrors,
   validateBookingDates,
   async (req, res) => {
-    try {
+    // try {
       let { user } = req;
       let { bookingId } = req.params;
       let { startDate, endDate } = req.body;
@@ -167,14 +167,14 @@ router.put(
       if (endDate) booking.endDate = endDate;
 
 
-      booking.startDate = formatAmericanDate(booking.startDate);
-      booking.endDate = formatAmericanDate(booking.endDate);
+
       // Save the changes
       await booking.save();
-
+booking.startDate = formatAmericanDate(booking.startDate);
+      booking.endDate = formatAmericanDate(booking.endDate);
       // Return the updated booking
       return res.json(booking);
-    } catch (error) {}
+    // } catch (error) {}
   }
 );
 
