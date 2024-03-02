@@ -7,7 +7,11 @@ const {SpotImage, Spot} = require("../../db/models")
 router.delete("/:imageId", requireAuth, async (req, res) => {
     let { imageId } = req.params;
     // let userId = req.user.id;
-
+    if (isNaN(imageId)) {
+        return res.status(404).json({
+          message: "Spot Image couldn't be found",
+        });
+    }
     let spotImage = await SpotImage.findByPk(imageId, {include: Spot})
 
     if (!spotImage) {

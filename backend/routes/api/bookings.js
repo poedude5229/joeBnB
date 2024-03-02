@@ -163,9 +163,12 @@ router.put(
       }
 
       // Update the booking's startDate and endDate if provided
-      if (startDate) booking.startDate = formatAmericanDate(startDate);
-      if (endDate) booking.endDate = formatAmericanDate(endDate);
+      if (startDate) booking.startDate = startDate;
+      if (endDate) booking.endDate = endDate;
 
+
+      booking.startDate = formatAmericanDate(booking.startDate);
+      booking.endDate = formatAmericanDate(booking.endDate);
       // Save the changes
       await booking.save();
 
