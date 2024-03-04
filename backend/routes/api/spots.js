@@ -461,8 +461,8 @@ router.post("/", requireAuth, validateSpot, async (req, res) => {
     price,
   });
 
-  newSpot.createdAt = formatAmericanDate(newSpot.createdAt);
-  newSpot.updatedAt = formatAmericanDate(newSpot.updatedAt)
+  newSpot.createdAt = formatAmericanDate(new Date());
+  newSpot.updatedAt = formatAmericanDate(new Date())
 
   res.status(201).json(newSpot);
 });
@@ -611,24 +611,29 @@ router.post(
 );
 
 router.post("/:spotId/bookings", requireAuth, async (req, res) => {
-  let { spotId } = req.params;
   let { startDate, endDate } = req.body;
+  const spotId = parseInt(req.params.spotId);
+  const userId = parseInt(req.user.id);
 
-  let spot = await Spot.findByPk(spotId);
+  const spot = await Spot.findByPk(spotId);
 
   if (!spot) {
-    return res.status(404).json({ message: "Spot couldn't be found" });
+    return res.status(404).json({
+      message: "Spot couldn't be found",
+    });
   }
 
-  if (spot.ownerId === req.user.id) {
-    return res.status(403).json({ message: "Forbidden" });
+  if (spot.ownerId == userId) {
+    return res.status(403).json({
+      message: "Forbidden",
+    });
   }
-  if (
-    new Date(startDate) < new Date() ||
-    new Date(endDate) <= new Date(startDate) ||
-    !startDate ||
-    !endDate
-  ) {
+
+  const currentDate = new Date();
+  const startDateCheck = new Date(startDate);
+  const endDateCheck = new Date(endDate);
+
+  if (startDateCheck < currentDate && endDateCheck <= startDateCheck) {
     return res.status(400).json({
       message: "Bad Request",
       errors: {
@@ -638,55 +643,122 @@ router.post("/:spotId/bookings", requireAuth, async (req, res) => {
     });
   }
 
-  //  if (new Date(endDate) <= new Date(startDate)) {
-  //    return res
-  //      .status(400)
-  //      .json({
-  //        message: "Bad Request",
-  //        errors: { endDate: "endDate cannot be on or before startDate" },
-  //      });
-  //  }
+  if (startDateCheck < currentDate) {
+    return res.status(400).json({
+      message: "Bad Request",
+      errors: {
+        startDate: "startDate cannot be in the past",
+      },
+    });
+  }
 
-  // Check for booking conflict
-  let existingBooking = await Booking.findOne({
+  if (endDateCheck <= startDateCheck) {
+    return res.status(400).json({
+      message: "Bad Request",
+      errors: {
+        endDate: "endDate cannot be on or before startDate",
+      },
+    });
+  }
+
+  const booking = await Booking.findOne({
     where: {
       spotId,
-      [Op.or]: [
-        { startDate: { [Op.between]: [startDate, endDate] } },
-        { endDate: { [Op.between]: [startDate, endDate] } },
+      [Op.and]: [
+        {
+          startDate: {
+            [Op.lte]: endDateCheck,
+          },
+        },
+        {
+          endDate: {
+            [Op.gte]: startDateCheck,
+          },
+        },
       ],
     },
   });
 
-  if (existingBooking) {
-    return res.status(403).json({
-      message: "Sorry, this spot is already booked for the specified dates",
-      errors: {
-        startDate: "Start date conflicts with an existing booking",
-        endDate: "End date conflicts with an existing booking",
-      },
-    });
-  }
-  if (spot.ownerId !== req.user.id) {
-    let newBooking = await Booking.create({
-      spotId,
-      userId: req.user.id,
-      startDate,
-      endDate,
-    });
+  if (booking) {
+    const bookingStart = new Date(booking.startDate).getTime();
+    const bookingEnd = new Date(booking.endDate).getTime();
 
-    let response = {
-      id: newBooking.id,
-      spotId: newBooking.spotId,
-      userId: newBooking.userId,
-      startDate: formatAmericanDate(newBooking.startDate),
-      endDate: formatAmericanDate(newBooking.endDate),
-      createdAt: formatAmericanDate(newBooking.createdAt),
-      updatedAt: formatAmericanDate(newBooking.updatedAt),
-    };
+    if (endDateCheck.getTime() == bookingStart) {
+      return res.status(403).json({
+        message: "Sorry, this spot is already booked for the specified dates",
+        error: {
+          endDate: "End date conflicts with an existing booking",
+        },
+      });
+    }
 
-    res.status(200).json(response);
+    if (startDateCheck >= bookingStart && endDateCheck <= bookingEnd) {
+      return res.status(403).json({
+        message: "Sorry, this spot is already booked for the specified dates",
+        errors: {
+          startDate: "Start date conflicts with an existing booking",
+          endDate: "End date conflicts with an existing booking",
+        },
+      });
+    }
+
+    if (startDateCheck >= bookingStart) {
+      return res.status(403).json({
+        message: "Sorry, this spot is already booked for the specified dates",
+        error: {
+          startDate: "Start date conflicts with an existing booking",
+        },
+      });
+    }
+
+    if (endDateCheck <= bookingEnd) {
+      return res.status(403).json({
+        message: "Sorry, this spot is already booked for the specified dates",
+        error: {
+          endDate: "End date conflicts with an existing booking",
+        },
+      });
+    }
+
+    if (startDateCheck < bookingStart && endDateCheck > bookingEnd) {
+      return res.status(403).json({
+        message: "Sorry, this spot is already booked for the specified dates",
+        errors: {
+          startDate: "Start date conflicts with an existing booking",
+          endDate: "End date conflicts with an existing booking",
+        },
+      });
+    }
   }
+
+  const newBooking = await Booking.create({
+    spotId,
+    userId,
+    startDate,
+    endDate,
+  });
+
+  const newBookingFormatted = {
+    ...newBooking.toJSON(),
+    startDate: newBooking.startDate.toJSON().slice(0, 10),
+    endDate: newBooking.endDate.toJSON().slice(0, 10),
+    createdAt: newBooking.createdAt
+      .toJSON()
+      .split("T")
+      .join(" ")
+      .split("Z")
+      .join("")
+      .slice(0, 19),
+    updatedAt: newBooking.updatedAt
+      .toJSON()
+      .split("T")
+      .join(" ")
+      .split("Z")
+      .join("")
+      .slice(0, 19),
+  };
+
+  return res.json(newBookingFormatted);
 });
 
 module.exports = router;
