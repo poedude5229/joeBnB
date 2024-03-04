@@ -11,6 +11,21 @@ const formatAmericanDate = (date) => {
   const month = formattedDate.getMonth() + 1;
   const day = formattedDate.getDate();
   const year = formattedDate.getFullYear();
+  const hours = formattedDate.getHours();
+  const minutes = formattedDate.getMinutes();
+  const sec = formattedDate.getSeconds();
+  return `${month}/${day}/${year} ${hours}:${minutes}:${sec}`;
+};
+
+
+const formatstartEndDate = (date) => {
+  const formattedDate = new Date(date);
+  const month = formattedDate.getMonth() + 1;
+  const day = formattedDate.getDate();
+  const year = formattedDate.getFullYear();
+  // const hours = formattedDate.getHours();
+  // const minutes = formattedDate.getMinutes();
+  // const sec = formattedDate.getSeconds();
   return `${month}/${day}/${year}`;
 };
 
@@ -96,8 +111,8 @@ router.get("/current", requireAuth, async (req, res) => {
         previewImage: booking.Spot.previewImage[0].url,
       },
       userId: +booking.userId,
-      startDate: formatAmericanDate(booking.startDate),
-      endDate: formatAmericanDate(booking.endDate),
+      startDate: formatstartEndDate(booking.startDate),
+      endDate: formatstartEndDate(booking.endDate),
       createdAt: formatAmericanDate(booking.createdAt),
       updatedAt: formatAmericanDate(booking.updatedAt),
     })),
@@ -167,11 +182,11 @@ router.put(
       if (endDate) booking.endDate = endDate;
 
 
+      booking.startDate = formatstartEndDate(booking.startDate);
+            booking.endDate = formatstartEndDate(booking.endDate);
 
       // Save the changes
       await booking.save();
-booking.startDate = formatAmericanDate(booking.startDate);
-      booking.endDate = formatAmericanDate(booking.endDate);
       // Return the updated booking
       return res.json(booking);
     // } catch (error) {}

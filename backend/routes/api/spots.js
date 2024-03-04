@@ -18,7 +18,10 @@ const formatAmericanDate = (date) => {
   const month = formattedDate.getMonth() + 1;
   const day = formattedDate.getDate();
   const year = formattedDate.getFullYear();
-  return `${month}/${day}/${year}`;
+  const hours = formattedDate.getHours();
+  const minutes = formattedDate.getMinutes();
+  const sec = formattedDate.getSeconds();
+  return `${month}/${day}/${year} ${hours}:${minutes}:${sec}`;
 };
 
 const checkQuery = [
@@ -304,6 +307,8 @@ router.get("/:spotId", async (req, res) => {
       message: "Spot couldn't be found",
     });
   }
+  //Finding the spot owner
+  let owner = await User.findByPk(spot.ownerId);
 
   // Calculate average rating for the spot
   let sum = 0;
@@ -344,6 +349,11 @@ router.get("/:spotId", async (req, res) => {
     updatedAt: formatAmericanDate(spot.updatedAt),
     avgRating: spot.avgRating || 0,
     SpotImages: spot.SpotImages,
+    Owner: {
+      id: +spot.ownerId,
+      firstName: owner.firstName,
+      lastName: owner.lastName,
+    },
   };
 
   // Return the spot with the calculated data
@@ -429,6 +439,7 @@ router.post("/:spotId/images", requireAuth, async (req, res) => {
   });
 
   return res.status(200).json({
+    id: newImage.id,
     url: newImage.url,
     preview: newImage.preview,
   });
@@ -449,6 +460,9 @@ router.post("/", requireAuth, validateSpot, async (req, res) => {
     description,
     price,
   });
+
+  newSpot.createdAt = formatAmericanDate(newSpot.createdAt);
+  newSpot.updatedAt = formatAmericanDate(newSpot.updatedAt)
 
   res.status(201).json(newSpot);
 });
