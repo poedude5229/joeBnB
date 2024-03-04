@@ -1,10 +1,10 @@
 const express = require("express");
-const { check, query } = require("express-validator");
+const { check, query, validationResult} = require("express-validator");
 const { Op, sequelize } = require("sequelize");
 const router = express.Router();
 const { requireAuth } = require("../../utils/auth");
 const { handleValidationErrors } = require("../../utils/validation");
-const { check, query, validationResult } = require("express-validator");
+
 const {
   Spot,
   Review,
