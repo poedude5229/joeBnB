@@ -462,7 +462,7 @@ router.post("/", requireAuth, validateSpot, async (req, res) => {
   });
 
   newSpot.createdAt = formatAmericanDate(new Date());
-  newSpot.updatedAt = formatAmericanDate(new Date())
+  newSpot.updatedAt = formatAmericanDate(new Date());
 
   res.status(201).json(newSpot);
 });
@@ -648,12 +648,44 @@ router.post("/:spotId/bookings", requireAuth, async (req, res) => {
   //  }
 
   // Check for booking conflict
+  // let existingBooking = await Booking.findOne({
+  //   where: {
+  //     spotId,
+  //     [Op.or]: [
+  //       { startDate: { [Op.between]: [startDate, endDate] } },
+  //       { endDate: { [Op.between]: [startDate, endDate] } },
+  //     ],
+  //   },
+  // });
+
   let existingBooking = await Booking.findOne({
     where: {
       spotId,
       [Op.or]: [
-        { startDate: { [Op.between]: [startDate, endDate] } },
-        { endDate: { [Op.between]: [startDate, endDate] } },
+        {
+          [Op.and]: [
+            { startDate: { [Op.lte]: startDate } },
+            { endDate: { [Op.gte]: endDate } },
+          ],
+        },
+        {
+          [Op.and]: [
+            { startDate: { [Op.gte]: startDate } },
+            { endDate: { [Op.lte]: endDate } },
+          ],
+        },
+        {
+          [Op.and]: [
+            { startDate: { [Op.lt]: endDate } },
+            { endDate: { [Op.gt]: startDate } },
+          ],
+        },
+        {
+          [Op.or]: [
+            { startDate: { [Op.between]: [startDate, endDate] } },
+            { endDate: { [Op.between]: [startDate, endDate] } },
+          ],
+        },
       ],
     },
   });
