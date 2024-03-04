@@ -41,7 +41,7 @@ const checkEmail = async (req, res, next) => {
     where: { email: email },
   });
   if (existing) {
-    res.status(400).json({
+    res.status(500).json({
       message: "User already exists",
       errors: {
         email: "User with that email already exists",
@@ -59,7 +59,7 @@ const checkUN = async (req, res, next) => {
   });
 
   if (existingUN) {
-    res.status(400).json({
+    res.status(500).json({
       message: "User already exists",
       errors: {
         username: "User with that username already exists",
