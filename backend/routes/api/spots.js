@@ -189,10 +189,10 @@ router.get("/", checkQuery, handleQueryValidationErrors, async (req, res) => {
   //  spot.previewImage = previewImage;
   //  }
   let response = { Spots: fixed };
-  if (req.query.size) {
+  // if (req.query.size) {
     response.page = +page;
     response.size = +size;
-  }
+  // }
 
   res.status(200).json(response);
 });
