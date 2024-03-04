@@ -4,6 +4,7 @@ const { Op, sequelize } = require("sequelize");
 const router = express.Router();
 const { requireAuth } = require("../../utils/auth");
 const { handleValidationErrors } = require("../../utils/validation");
+const { check, query, validationResult } = require("express-validator");
 const {
   Spot,
   Review,
@@ -58,6 +59,24 @@ const checkQuery = [
     .isFloat({ min: 0 })
     .withMessage("Minimum price must be greater than or equal to 0"),
 ];
+const handleQueryValidationErrors = (req, res, next) => {
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    let errorResponse = {
+      message: "Bad Request",
+      errors: {},
+    };
+
+    errors.array().forEach((error) => {
+      errorResponse.errors[error.param] = error.msg;
+    });
+
+    return res.status(400).json(errorResponse);
+  }
+
+  next();
+};
 
 const reviewCheckMW = (req, res, next) => {
   let { review, stars } = req.body;
@@ -74,7 +93,7 @@ const reviewCheckMW = (req, res, next) => {
   next();
 };
 
-router.get("/", checkQuery, handleValidationErrors, async (req, res) => {
+router.get("/", checkQuery, handleQueryValidationErrors, async (req, res) => {
   let { page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice } =
     req.query;
 
@@ -169,8 +188,13 @@ router.get("/", checkQuery, handleValidationErrors, async (req, res) => {
   //  // Add avgRating and previewImage to the spot object
   //  spot.previewImage = previewImage;
   //  }
+  let response = { Spots: fixed };
+  if (req.query.size) {
+    response.page = +page;
+    response.size = +size;
+  }
 
-  res.status(200).json({ Spots: fixed, page: +page, size: +size });
+  res.status(200).json(response);
 });
 
 router.delete("/:spotId", requireAuth, async (req, res) => {
