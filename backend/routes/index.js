@@ -28,20 +28,23 @@ if (process.env.NODE_ENV == "production") {
     );
   });
 
-  router.use(express.static(path.resolve("../frontend/build")));
+  router.use(express.static(path.resolve("../frontend/dist")));
 
   router.get(/^(?!\/?api).*/, (req, res) => {
     res.cookie("XSRF-TOKEN", req.csrfToken());
     return res.sendFile(
-      path.resolve(__dirname, "../../frontend", "build", "indexhtml")
+      path.resolve(__dirname, "../../frontend", "dist", "indexhtml")
     );
   });
 }
 
 if (process.env.NODE_ENV !== "production") {
   router.get("/api/csrf/restore", (req, res) => {
-    res.cookie("XSRF-TOKEN", req.csrfToken());
-    return res.json({});
+    const csrfToken = req.csrfToken();
+    res.cookie("XSRF-TOKEN", csrfToken);
+    res.status(200).json({
+      "XSRF-Token": csrfToken,
+    });
   });
 }
 // ...
