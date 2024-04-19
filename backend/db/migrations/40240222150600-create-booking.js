@@ -63,16 +63,16 @@ module.exports = {
       },
       options
     );
-    await queryInterface.addConstraint(options, {
-      type: "unique",
-      fields: ["spotId", "userId", "startDate", "endDate"],
-      name: "unique_booking_for_user_and_spot_and_dates",
-    });
-    await queryInterface.addConstraint(options, {
-      type: "unique",
-      fields: ["spotId", "startDate"],
-      name: "unique_spot_date_booking",
-    });
+    // await queryInterface.addConstraint(options, {
+    //   type: "unique",
+    //   fields: ["spotId", "userId", "startDate", "endDate"],
+    //   name: "unique_booking_for_user_and_spot_and_dates",
+    // });
+    // await queryInterface.addConstraint(options, {
+    //   type: "unique",
+    //   fields: ["spotId", "startDate"],
+    //   name: "unique_spot_date_booking",
+    // });
   },
   async down(queryInterface, Sequelize) {
     // options.tableName = "Bookings";
