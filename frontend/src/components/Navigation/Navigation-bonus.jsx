@@ -2,7 +2,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import ProfileButton from "./ProfileButton-bonus";
 import "./Navigation.css";
-import bridge from "../../../dist/bridge.png";
+import bridge from "../../../public/assets/bridge.png";
 function Navigation({ isLoaded }) {
   const navigate = useNavigate();
   const sessionUser = useSelector((state) => state.session.user);
