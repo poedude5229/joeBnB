@@ -1,0 +1,65 @@
+.spotContainer {
+  margin-top: 10px;
+  width: auto;
+  display: flex;
+  /* flex-direction: row; */
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: space-around;
+}
+
+.tile {
+  width: 400px;
+  height: 410px;
+  text-decoration: none;
+}
+
+.tileThumbnail {
+  width: 400px;
+  height: 250px;
+  border-radius: 3%;
+  box-shadow: 2px 2px 5px black;
+}
+
+.tileThumbnail:hover {
+  box-shadow: 3px 3px 10px #002855;
+}
+
+.spotInfo {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  text-wrap: wrap;
+}
+
+.spotName {
+  text-decoration: none;
+  font-size: 24px;
+  order: -2;
+}
+
+.spotName:hover {
+  text-decoration: underline;
+}
+
+.spotLocation {
+  text-decoration: none;
+  font-size: 20px;
+  margin-left: 10px;
+  order: -1;
+}
+
+.price {
+  order: 0;
+}
+
+.stars {
+  order: 1;
+}
+
+.WVStar {
+  width: 25px;
+  height: 25px;
+  order: 3;
+}

@@ -1,1 +1,51 @@
-#modal{position:fixed;top:0;right:0;left:0;bottom:0;display:flex;justify-content:center;align-items:center}#modal-background{position:fixed;top:0;right:0;left:0;bottom:0;background-color:#000000b3}#modal-content{position:absolute;background-color:#fff}.profile-dropdown{position:absolute}.hidden{display:none}
+@import url("https://fonts.googleapis.com/css2?family=Oswald&display=swap");
+#modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+#modal-background {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background-color: #000000b3;
+}
+#modal-content {
+  position: absolute;
+  background-color: #fff;
+  border: 3px solid #002855;
+}
+.profile-dropdown {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; */
+  right: 150px;
+  top: 20px;
+  transition: ease;
+  /* transition-duration: 2000ms; */
+}
+
+.hidden {
+  display: none;
+}
+
+* {
+  font-family: "Oswald";
+}
+
+.profilemenu {
+  cursor: pointer;
+}
+
+/* .dropdownDiv {
+
+} */

@@ -44,6 +44,11 @@ module.exports = {
           url: "https://ap.rdcpix.com/d296c40d2887f04a80c1cead540c7583l-b523895560od-w480_h360_x2.webp?w=640&q=75",
           preview: true,
         },
+        {
+          spotId: 5,
+          url: "https://ap.rdcpix.com/4a67e3638a847722579b5fa80040d8bal-m3349128204rd-w2048_h1536.webp",
+          preview: true,
+        },
       ],
       {
         validate: true,
