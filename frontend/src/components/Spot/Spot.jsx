@@ -1,8 +1,5 @@
-
-
-import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { spotDetails } from "../../store/spots";
 import { useParams } from "react-router-dom";
 // import blankWvStar from "../../West_Virginia-512.png";
@@ -96,7 +93,11 @@ function DetailsPage() {
       {showModal && (
         <div className="modal">
           <div className="modal-content">
-            <span className="close" style={{cursor: "pointer"}} onClick={toggleModal}>
+            <span
+              className="close"
+              style={{ cursor: "pointer" }}
+              onClick={toggleModal}
+            >
               X
             </span>
             <MakeReview />
