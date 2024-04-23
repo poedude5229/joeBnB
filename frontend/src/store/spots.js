@@ -100,6 +100,13 @@ export const spotDetails = (spotId) => async (dispatch) => {
   return res;
 };
 
+export const userSpots = () => async (dispatch) => {
+  let res = await csrfFetch(`/api/spots/current`);
+  let currentSpots = await res.json();
+  dispatch(getCurrentSpots(currentSpots));
+  return currentSpots;
+};
+
 function spotsReducer(state = {}, action) {
   switch (action.type) {
     case GETSPOTS: {
