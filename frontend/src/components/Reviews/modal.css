@@ -1,0 +1,29 @@
+.window-overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  position: absolute;
+}
+
+input[type="radio"] {
+  display: none;
+}
+
+.star-icon {
+  font-size: 25px;
+  color: #939393;
+  transition: color 0.3s ease;
+}
+.star-icon:hover {
+  color: #002855;
+}

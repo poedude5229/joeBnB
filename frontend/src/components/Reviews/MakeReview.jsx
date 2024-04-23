@@ -2,7 +2,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { createSpotReview } from "../../store/reviews";
-
+import { FaStar } from "react-icons/fa";
+import "./modal.css";
 const MakeReview = () => {
   let dispatch = useDispatch();
   let { spotId } = useParams();
@@ -11,7 +12,7 @@ const MakeReview = () => {
   let sessionUser = useSelector((state) => state.session.user?.id);
   let spotOwner = useSelector((state) => state.spots?.[spotId].ownerId);
   const [review, setReview] = useState("");
-  const [active, setActive] = useState(false);
+  //   const [active, setActive] = useState(false);
   const [stars, setStars] = useState(0);
   const [errors, setErrors] = useState([]);
   const ratings = [1, 2, 3, 4, 5];
@@ -29,7 +30,7 @@ const MakeReview = () => {
 
   function resetStates() {
     setReview("");
-    setActive(null);
+    // setActive(null);
     setStars(0);
     setErrors([]);
   }
@@ -50,8 +51,39 @@ const MakeReview = () => {
   return (
     <>
       {sessionUser && sessionUser !== spotOwner && !existing && (
-        <form onSubmit={onSubmit}></form>
+        <form onSubmit={onSubmit}>
+          <h2>How was your stay?</h2>
+          <textarea
+            name="reviewtext"
+            id="reviewtext"
+            placeholder="Leave your review here..."
+            value={review}
+            onChange={(e) => setReview(e.target.value)}
+          />
+          <p className="errorMessage">
+            {errors.filter((error) => error.includes("char"))}
+          </p>
+          {ratings.map((star, index) => {
+            let starRating = index + 1;
+            return (
+              <label key={starRating}>
+                <input
+                  type="radio"
+                  name="starRating"
+                  value={starRating}
+                  onClick={() => setStars(starRating)}
+                  onChange={() => setStars(starRating)}
+                />
+                <FaStar className="star-icon" />
+              </label>
+            );
+          })}
+          <span>{stars} Stars</span>
+          <button disabled={errors.length}>Submit Your Review</button>
+        </form>
       )}
     </>
   );
 };
+
+export default MakeReview;
