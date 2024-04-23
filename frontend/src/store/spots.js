@@ -24,10 +24,10 @@ let createSpot = (spot) => ({
   spot,
 });
 
-// let getCurrentSpots = (spots) => ({
-//   type: GETCURRENT,
-//   spots,
-// });
+let getCurrentSpots = (spots) => ({
+  type: GETCURRENT,
+  spots,
+});
 
 let updateSpot = (spot) => ({
   type: UPDATE,

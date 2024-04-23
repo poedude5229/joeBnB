@@ -27,15 +27,13 @@ const Homepage = () => {
                   className="tileThumbnail"
                 />
                 <div className="spotInfo">
-                  <div className="spotName">{`${spot.name}`}</div>
+                  <span className="spotName">{`${spot.name}`}</span>
                   <div className="spotLocation">{`${spot.city}, WV`}</div>
 
                   <div className="price">{`$${spot.price}`}/ night</div>
                   <div className="stars">
                     <img src={blankWVStar} alt="WVStar" className="WVStar" />
-                    {spot.avgRating !== 0
-                      ? `${spot.avgRating} stars`
-                      : "Not yet reviewed"}
+                    {spot.avgRating !== 0 ? `${spot.avgRating} stars` : "New"}
                   </div>
                 </div>
               </NavLink>

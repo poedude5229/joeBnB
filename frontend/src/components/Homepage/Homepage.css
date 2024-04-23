@@ -10,8 +10,13 @@
 
 .tile {
   width: 400px;
-  height: 410px;
+  height: 400px;
   text-decoration: none;
+  position: relative;
+}
+
+.spotInfo:hover {
+  visibility: visible;
 }
 
 .tileThumbnail {
@@ -27,39 +32,50 @@
 
 .spotInfo {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
   flex-wrap: wrap;
   text-wrap: wrap;
 }
 
 .spotName {
-  text-decoration: none;
-  font-size: 24px;
-  order: -2;
+  background-color: #002855;
+  visibility: hidden;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+  width: 120px;
+  /* bottom: -105px; */
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
-.spotName:hover {
-  text-decoration: underline;
+.tile:hover .spotName {
+  text-decoration: none;
+  visibility: visible;
 }
 
 .spotLocation {
   text-decoration: none;
   font-size: 20px;
   margin-left: 10px;
-  order: -1;
+  /* order: -1; */
 }
 
-.price {
-  order: 0;
-}
+/* .price {
+  /* order: 0; */
+/* } */
 
-.stars {
-  order: 1;
-}
+/* .stars { */
+/* order: 1; */
+/* } */
 
 .WVStar {
   width: 25px;
   height: 25px;
-  order: 3;
+  /* order: 3; */
 }
