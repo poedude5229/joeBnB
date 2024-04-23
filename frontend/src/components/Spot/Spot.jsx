@@ -68,7 +68,7 @@ function DetailsPage() {
                 <span className="spotPrice">{`$${selected.price} / night`}</span>
                 <span className="spotStars">
                   {/* Review button */}
-                  {sessionUser.id !== selected.ownerId && (
+                  {sessionUser && sessionUser.id !== selected.ownerId && (
                     <button onClick={toggleModal}>
                       {rv.length > 0
                         ? "Post Your Review!"

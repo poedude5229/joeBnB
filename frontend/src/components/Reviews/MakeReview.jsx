@@ -49,7 +49,7 @@ const MakeReview = () => {
 
   let existing = reviews?.find((review) => review.userId === sessionUser);
   return (
-    <>
+    <div>
       {sessionUser && sessionUser !== spotOwner && !existing && (
         <form onSubmit={onSubmit}>
           <h2>How was your stay?</h2>
@@ -82,7 +82,7 @@ const MakeReview = () => {
           <button disabled={errors.length}>Submit Your Review</button>
         </form>
       )}
-    </>
+    </div>
   );
 };
 
