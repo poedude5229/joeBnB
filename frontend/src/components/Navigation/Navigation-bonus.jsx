@@ -30,8 +30,8 @@ function Navigation({ isLoaded }) {
           src={bridge}
           alt="No"
           style={{
-            width: "90px",
-            height: "auto",
+            width: "110px",
+            height: "110px",
             borderRadius: "50%",
             overflow: "hidden",
           }}

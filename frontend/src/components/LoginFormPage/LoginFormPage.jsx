@@ -1,8 +1,8 @@
-import {  useState } from 'react';
-import * as sessionActions from '../../store/session';
-import { useDispatch, useSelector } from 'react-redux';
-import { Navigate } from 'react-router-dom';
-import './LoginForm.css';
+import { useState } from "react";
+import * as sessionActions from "../../store/session";
+import { useDispatch, useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
+import "./LoginForm.css";
 
 function LoginFormPage() {
   const dispatch = useDispatch();
@@ -10,7 +10,8 @@ function LoginFormPage() {
   const [credential, setCredential] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
-// const [errorArray, setErrorArray] = useState([])
+  const [errorMessage, setErrorMessage] = useState("");
+  // const [errorArray, setErrorArray] = useState([])
   if (sessionUser) return <Navigate to="/" replace={true} />;
 
   const handleSubmit = (e) => {
@@ -19,7 +20,9 @@ function LoginFormPage() {
     return dispatch(sessionActions.login({ credential, password })).catch(
       async (res) => {
         const data = await res.json();
-        if (data?.errors) setErrors(data.errors);
+        if (data?.errors) {
+          setErrors(data.errors);
+        }
       }
     );
   };
@@ -52,6 +55,7 @@ function LoginFormPage() {
           />
         </label>
         {errors.credential && <p>{errors.credential}</p>}
+        
         <button type="submit">Log In</button>
       </form>
     </>

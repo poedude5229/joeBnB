@@ -123,9 +123,9 @@ function DetailsPage() {
                       }}
                     >
                       <h3>
-                        {rv.length > 0 ? (
+                        
                           <FaStar style={{ color: "#EAAA00" }} />
-                        ) : null}
+
                         {rv.length > 0
                           ? average % 1 !== 0
                             ? `${average} stars · `
@@ -148,10 +148,10 @@ function DetailsPage() {
                       {rv?.reverse().map((review) => (
                         <li key={review.id}>
                           <h4>
-                            {review.User.firstName +
+                            {review?.User?.firstName +
                               `, ${
-                                months[review.createdAt.slice(0, 1) - 1]
-                              } ${review.createdAt.slice(5, 9)}`}
+                                months[review.createdAt?.slice(0, 1) - 1]
+                              } ${review.createdAt?.slice(5, 9)}`}
                           </h4>
                           <p>
                             <FaStar />

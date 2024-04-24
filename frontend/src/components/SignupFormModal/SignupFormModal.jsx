@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { useModal } from '../../context/Modal';
-import * as sessionActions from '../../store/session';
-import './SignupForm.css';
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { useModal } from "../../context/Modal";
+import * as sessionActions from "../../store/session";
+import "./SignupForm.css";
 
 function SignupFormModal() {
   const dispatch = useDispatch();
@@ -14,7 +14,7 @@ function SignupFormModal() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
-
+  const [block, setBlock] = useState(false);
   const handleSubmit = (e) => {
     e.preventDefault();
     if (password === confirmPassword) {
@@ -25,7 +25,7 @@ function SignupFormModal() {
           username,
           firstName,
           lastName,
-          password
+          password,
         })
       )
         .then(closeModal)
@@ -37,9 +37,25 @@ function SignupFormModal() {
         });
     }
     return setErrors({
-      confirmPassword: "Confirm Password field must be the same as the Password field"
+      confirmPassword:
+        "Confirm Password field must be the same as the Password field",
     });
   };
+
+  useEffect(() => {
+    if (
+      email.length === 0 ||
+      username.length < 4 ||
+      firstName.length === 0 ||
+      lastName.length === 0 ||
+      password.length < 6 ||
+      confirmPassword.length < 6
+    ) {
+      setBlock(true);
+    } else {
+      setBlock(false);
+    }
+  }, [email, username, firstName, lastName, password, confirmPassword]);
 
   return (
     <>
@@ -105,7 +121,9 @@ function SignupFormModal() {
           />
         </label>
         {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
-        <button type="submit">Sign Up</button>
+        <button type="submit" disabled={block}>
+          Sign Up
+        </button>
       </form>
     </>
   );
