@@ -51,6 +51,7 @@ const MakeReview = (props) => {
     dispatch(createSpotReview(newReview, spotId));
     resetStates();
     props.closeModal();
+    window.location.reload();
   };
 
   let existing = reviews?.find((review) => review.userId === sessionUser);

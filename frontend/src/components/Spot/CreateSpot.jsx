@@ -29,6 +29,13 @@ function CreateSpot() {
   async function handleSubmit(e) {
     e.preventDefault();
 
+    let images = {
+      previewImage,
+      img2,
+      img3,
+      img4,
+      img5,
+    };
     let spot = {
       ownerId: sessionUser.id,
       address,
@@ -42,16 +49,11 @@ function CreateSpot() {
       price,
     };
 
-    let images = {
-      previewImage,
-      img2,
-      img3,
-      img4,
-      img5,
-    };
+    // spot.spotImages = Object.values(images);
     let newSpot = await dispatch(createASpot(spot, images));
-    await dispatch(spotDetails(newSpot));
-    await navigate(`/spots/${newSpot.id}`);
+    // newSpot.SpotImages.push(Object.values(images));
+    await dispatch(spotDetails(newSpot.id));
+    navigate(`/spots/${newSpot.id}`);
   }
 
   return (
@@ -214,6 +216,7 @@ function CreateSpot() {
               Image 4 URL
               <input
                 type="text"
+                id="image4Input"
                 placeholder="Image URL"
                 value={img4}
                 onChange={(e) => setImg4(e.target.value)}
@@ -223,6 +226,7 @@ function CreateSpot() {
               Image 5 URL
               <input
                 type="text"
+                id="image5Input"
                 placeholder="Image URL"
                 value={img5}
                 onChange={(e) => setImg5(e.target.value)}
