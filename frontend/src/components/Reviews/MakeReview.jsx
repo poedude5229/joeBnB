@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { createSpotReview } from "../../store/reviews";
+import { FaRegStar } from "react-icons/fa";
 import { FaStar } from "react-icons/fa";
 import "./modal.css";
 const MakeReview = () => {
@@ -12,9 +13,10 @@ const MakeReview = () => {
   let sessionUser = useSelector((state) => state.session.user?.id);
   let spotOwner = useSelector((state) => state.spots?.[spotId].ownerId);
   const [review, setReview] = useState("");
-  //   const [active, setActive] = useState(false);
+  const [active, setActive] = useState(0);
   const [stars, setStars] = useState(0);
   const [errors, setErrors] = useState([]);
+  const [filled, setFilled] = useState(0);
   const ratings = [1, 2, 3, 4, 5];
 
   useEffect(() => {
@@ -71,10 +73,23 @@ const MakeReview = () => {
                   type="radio"
                   name="starRating"
                   value={starRating}
-                  onClick={() => setStars(starRating)}
+                  onClick={() => {
+                    setStars(starRating);
+                    setFilled(starRating);
+                  }}
                   onChange={() => setStars(starRating)}
+                  placeholder={index}
                 />
-                <FaStar className="star-icon" />
+                <i
+                  onMouseEnter={() => setActive(starRating)}
+                  onMouseLeave={() => setActive(0)}
+                >
+                  {active >= starRating || starRating <= filled ? (
+                    <FaStar />
+                  ) : (
+                    <FaRegStar />
+                  )}{" "}
+                </i>
               </label>
             );
           })}

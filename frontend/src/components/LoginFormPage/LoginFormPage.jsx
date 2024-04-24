@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import * as sessionActions from '../../store/session';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
@@ -10,7 +10,7 @@ function LoginFormPage() {
   const [credential, setCredential] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
-
+const [errorArray, setErrorArray] = useState([])
   if (sessionUser) return <Navigate to="/" replace={true} />;
 
   const handleSubmit = (e) => {
@@ -23,6 +23,11 @@ function LoginFormPage() {
       }
     );
   };
+
+  // useEffect(() => {
+  //   let arr = [];
+  //   if(credential.length < 4)
+  // })
 
   return (
     <>
