@@ -16,6 +16,10 @@ function DetailsPage() {
     dispatch(spotReviews(spotId));
   }, [dispatch, spotId]);
 
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
   let spot = useSelector((state) => state.spots);
   let selected = spot[spotId];
   let reviews = useSelector((state) => state.reviews);
@@ -151,7 +155,7 @@ function DetailsPage() {
               X
             </span>
 
-            <MakeReview />
+            <MakeReview closeModal={closeModal} />
           </div>
         </div>
       )}
