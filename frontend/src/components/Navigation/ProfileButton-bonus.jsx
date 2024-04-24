@@ -5,7 +5,7 @@ import OpenModalMenuItem from "./OpenModalMenuItem";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
 import { useNavigate } from "react-router-dom";
-
+import { NavLink } from "react-router-dom";
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
@@ -51,8 +51,8 @@ function ProfileButton({ user }) {
         {user ? (
           <>
             <li>Hello, {user.firstName}</li>
-            <li>{user.username}</li>
             <li>{user.email}</li>
+            <li><NavLink to="/">Manage Spots</NavLink></li>
             <li>
               <button onClick={logout}>Log Out</button>
             </li>

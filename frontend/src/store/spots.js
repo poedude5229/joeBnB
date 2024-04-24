@@ -70,16 +70,15 @@ export const createASpot = (spot, images) => async (dispatch) => {
   }
   if (res.ok) {
     let newSpot = await res.json();
-    imgURLs.forEach((url) => {
-      url &&
-        csrfFetch(`/api/spots/${newSpot.id}/images`, {
-          method: "POST",
-          headers: { "Content-type": "application/json" },
-          body: JSON.stringify({
-            url: url,
-            preview: true,
-          }),
-        });
+    imgURLs.forEach((image) => {
+      csrfFetch(`/api/spots/${newSpot.id}/images`, {
+        method: "POST",
+        // headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          url: image.url,
+          preview: true,
+        }),
+      });
     });
     await dispatch(createSpot(newSpot));
     return newSpot;
