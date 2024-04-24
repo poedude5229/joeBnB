@@ -23,11 +23,14 @@ function DetailsPage() {
   rv.forEach((review) => {
     sum += review.stars;
   });
-  //   console.log(sum);
+  //   console.log(rv);
   let average = (sum / rv.length).toFixed(1);
   //   console.log(average);
   let stringAvg = average.toString();
   let sessionUser = useSelector((state) => state.session.user);
+  // console.log(sessionUser.id)
+  let existing = rv.find((review) => review.userId === sessionUser.id);
+//   console.log(existing);
 
   const [showModal, setShowModal] = useState(false);
 
@@ -73,13 +76,15 @@ function DetailsPage() {
                 <p>{selected.description}</p>
                 <span className="spotPrice">{`$${selected.price} / night`}</span>
                 <span className="spotStars">
-                  {sessionUser && sessionUser.id !== selected.ownerId && (
-                    <button onClick={toggleModal}>
-                      {rv.length > 0
-                        ? "Post Your Review!"
-                        : "Be the first to leave a review!"}
-                    </button>
-                  )}
+                  {!existing &&
+                    sessionUser &&
+                    sessionUser.id !== selected.ownerId && (
+                      <button onClick={toggleModal}>
+                        {rv.length > 0
+                          ? "Post Your Review!"
+                          : "Be the first to leave a review!"}
+                      </button>
+                    )}
                   <div className="reviewBoard">
                     <div
                       className="reviewHeader"
@@ -123,8 +128,9 @@ function DetailsPage() {
               onClick={toggleModal}
             >
               X
-            </span>
-            <MakeReview />
+                      </span>
+                      <form onSubmit={toggleModal}><MakeReview /></form>
+
           </div>
         </div>
       )}
