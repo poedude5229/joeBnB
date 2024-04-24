@@ -6,7 +6,7 @@ import { FaRegStar } from "react-icons/fa";
 import { FaStar } from "react-icons/fa";
 // import { showModal, setShowModal } from "../Spot/Spot";
 import "./modal.css";
-import finalPropsSelectorFactory from "react-redux/es/connect/selectorFactory";
+// import finalPropsSelectorFactory from "react-redux/es/connect/selectorFactory";
 const MakeReview = (props) => {
   let dispatch = useDispatch();
   let { spotId } = useParams();
