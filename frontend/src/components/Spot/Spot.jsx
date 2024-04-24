@@ -69,7 +69,7 @@ function DetailsPage() {
           </header>
           <div className="spotDetailsImages">
             <img
-              src={selected?.SpotImages?.[0].url}
+              src={selected?.SpotImages?.[0]?.url}
               alt={`Spot ${spotId} preview image`}
               className="largeThumbnail"
             />
@@ -79,23 +79,23 @@ function DetailsPage() {
                 alt="small spot picture one"
               />
               <img
-                src={selected.SpotImages?.[1]?.url}
+                src={selected.SpotImages?.[2]?.url}
                 alt="small spot picture 2"
               />
               <img
-                src={selected.SpotImages?.[1]?.url}
+                src={selected.SpotImages?.[3]?.url}
                 alt="small spot picture 3"
               />
               <img
-                src={selected.SpotImages?.[1]?.url}
+                src={selected.SpotImages?.[4]?.url}
                 alt="small spot picture 4"
               />
             </div>
             <div className="spotInfo">
               <div className="description">
                 <h3>{`Hosted by ${selected.Owner?.firstName} ${selected.Owner?.lastName}`}</h3>
-                <p>{selected.description}</p>
-                <span className="spotPrice">{`$${selected.price} / night`}</span>
+                <p>{selected?.description}</p>
+                <span className="spotPrice">{`$${selected?.price} / night`}</span>
                 <span className="spotStars">
                   {!existing &&
                     sessionUser &&
@@ -123,8 +123,7 @@ function DetailsPage() {
                       }}
                     >
                       <h3>
-                        
-                          <FaStar style={{ color: "#EAAA00" }} />
+                        <FaStar style={{ color: "#EAAA00" }} />
 
                         {rv.length > 0
                           ? average % 1 !== 0

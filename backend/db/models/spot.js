@@ -50,7 +50,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-          len: [3, 30],
+          len: [2, 30],
         },
       },
       country: {
@@ -63,9 +63,8 @@ module.exports = (sequelize, DataTypes) => {
       lat: {
         type: DataTypes.NUMERIC,
         allowNull: false,
-        unique: true,
       },
-      lng: { type: DataTypes.NUMERIC, allowNull: false, unique: true },
+      lng: { type: DataTypes.NUMERIC, allowNull: false },
       name: {
         type: DataTypes.STRING,
         allowNull: false,
