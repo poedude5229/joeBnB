@@ -33,7 +33,11 @@ const Homepage = () => {
                   <div className="price">{`$${spot.price}`}/ night</div>
                   <div className="stars">
                     <img src={blankWVStar} alt="WVStar" className="WVStar" />
-                    {spot.avgRating !== 0 ? `${spot.avgRating} stars` : "New"}
+                    {spot.avgRating !== 0
+                      ? (spot.avgRating % 1 === 0
+                          ? spot.avgRating.toFixed(0)
+                          : spot.avgRating.toFixed(1)) + " stars"
+                      : "New"}
                   </div>
                 </div>
               </NavLink>

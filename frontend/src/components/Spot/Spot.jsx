@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import { spotReviews } from "../../store/reviews";
 import "../../../public/assets/index-167b04b0.css";
 import MakeReview from "../Reviews/MakeReview";
-
+import "./modal.css";
 function DetailsPage() {
   let { spotId } = useParams();
   let dispatch = useDispatch();
@@ -19,12 +19,18 @@ function DetailsPage() {
   let selected = spot[spotId];
   let reviews = useSelector((state) => state.reviews);
   let rv = Object.values(reviews);
+  let sum = 0;
+  rv.forEach((review) => {
+    sum += review.stars;
+  });
+  //   console.log(sum);
+  let average = (sum / rv.length).toFixed(1);
+  //   console.log(average);
+  let stringAvg = average.toString();
   let sessionUser = useSelector((state) => state.session.user);
 
-  // State to control modal visibility
   const [showModal, setShowModal] = useState(false);
 
-  // Function to open and close modal
   const toggleModal = () => setShowModal(!showModal);
 
   return (
@@ -67,7 +73,6 @@ function DetailsPage() {
                 <p>{selected.description}</p>
                 <span className="spotPrice">{`$${selected.price} / night`}</span>
                 <span className="spotStars">
-                  {/* Review button */}
                   {sessionUser && sessionUser.id !== selected.ownerId && (
                     <button onClick={toggleModal}>
                       {rv.length > 0
@@ -76,7 +81,26 @@ function DetailsPage() {
                     </button>
                   )}
                   <div className="reviewBoard">
-                    <h3>Reviews</h3>
+                    <div
+                      className="reviewHeader"
+                      style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        gap: "5px",
+                      }}
+                    >
+                      <h3>
+                        {stringAvg[stringAvg.length - 1] === 0
+                          ? `${average} stars · `
+                          : `${stringAvg} stars · `}
+                      </h3>
+
+                      <h3>
+                        {rv.length > 1
+                          ? ` ${rv.length} reviews`
+                          : ` ${rv.length} review`}
+                      </h3>
+                    </div>
                     <ul>
                       {rv.map((review) => (
                         <li key={review.id}>{review.review}</li>
@@ -91,8 +115,8 @@ function DetailsPage() {
       )}
 
       {showModal && (
-        <div className="modal">
-          <div className="modal-content">
+        <div className="modal" onClick={toggleModal}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <span
               className="close"
               style={{ cursor: "pointer" }}
