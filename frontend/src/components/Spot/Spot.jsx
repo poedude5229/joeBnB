@@ -29,8 +29,8 @@ function DetailsPage() {
   let stringAvg = average.toString();
   let sessionUser = useSelector((state) => state.session.user);
   // console.log(sessionUser.id)
-  let existing = rv.find((review) => review.userId === sessionUser.id);
-//   console.log(existing);
+  let existing = rv.find((review) => review.userId === sessionUser?.id);
+  //   console.log(existing);
 
   const [showModal, setShowModal] = useState(false);
 
@@ -128,9 +128,9 @@ function DetailsPage() {
               onClick={toggleModal}
             >
               X
-                      </span>
-                      <form onSubmit={toggleModal}><MakeReview /></form>
+            </span>
 
+            <MakeReview />
           </div>
         </div>
       )}
