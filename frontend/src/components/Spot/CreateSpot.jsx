@@ -18,24 +18,19 @@ function CreateSpot() {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState(1);
-  const [previewImage, setPreviewImage] = useState("");
-  const [img2, setImg2] = useState("");
-  const [img3, setImg3] = useState("");
-  const [img4, setImg4] = useState("");
-  const [img5, setImg5] = useState("");
+  const [previewImage, setPreviewImage] = useState({ url: "", preview: true });
+  const [img2, setImg2] = useState({ url: "", preview: true });
+  const [img3, setImg3] = useState({ url: "", preview: true });
+  const [img4, setImg4] = useState({ url: "", preview: true });
+  const [img5, setImg5] = useState({ url: "", preview: true });
 
   const [errors, setErrors] = useState("");
 
   async function handleSubmit(e) {
     e.preventDefault();
 
-    let images = {
-      previewImage,
-      img2,
-      img3,
-      img4,
-      img5,
-    };
+    let images = { previewImage, img2, img3, img4, img5 };
+    // console.log(previewImage, img2, img3, img4, img5);
     let spot = {
       ownerId: sessionUser.id,
       address,
@@ -48,6 +43,7 @@ function CreateSpot() {
       description,
       price,
     };
+    console.log(images);
 
     // spot.spotImages = Object.values(images);
     let newSpot = await dispatch(createASpot(spot, images));
@@ -188,8 +184,13 @@ function CreateSpot() {
                 type="text"
                 placeholder="Preview Image Url"
                 id="prevImageURL"
-                value={previewImage}
-                onChange={(e) => setPreviewImage(e.target.value)}
+                value={previewImage.url}
+                onChange={(e) =>
+                  setPreviewImage((prevState) => ({
+                    ...prevState,
+                    url: e.target.value,
+                  }))
+                }
               />
             </label>
             <label htmlFor="image2Input">
@@ -198,8 +199,13 @@ function CreateSpot() {
                 type="text"
                 placeholder="Image URL"
                 id="image2Input"
-                value={img2}
-                onChange={(e) => setImg2(e.target.value)}
+                value={img2.url}
+                onChange={(e) =>
+                  setImg2((prevState) => ({
+                    ...prevState,
+                    url: e.target.value,
+                  }))
+                }
               />
             </label>
             <label htmlFor="image3Input">
@@ -208,8 +214,13 @@ function CreateSpot() {
                 id="image3Input"
                 type="text"
                 placeholder="Image URL"
-                value={img3}
-                onChange={(e) => setImg3(e.target.value)}
+                value={img3.url}
+                onChange={(e) =>
+                  setImg3((prevState) => ({
+                    ...prevState,
+                    url: e.target.value,
+                  }))
+                }
               />
             </label>
             <label htmlFor="image4Input">
@@ -218,8 +229,13 @@ function CreateSpot() {
                 type="text"
                 id="image4Input"
                 placeholder="Image URL"
-                value={img4}
-                onChange={(e) => setImg4(e.target.value)}
+                value={img4.url}
+                onChange={(e) =>
+                  setImg4((prevState) => ({
+                    ...prevState,
+                    url: e.target.value,
+                  }))
+                }
               />
             </label>
             <label htmlFor="image5Input">
@@ -228,8 +244,13 @@ function CreateSpot() {
                 type="text"
                 id="image5Input"
                 placeholder="Image URL"
-                value={img5}
-                onChange={(e) => setImg5(e.target.value)}
+                value={img5.url}
+                onChange={(e) =>
+                  setImg5((prevState) => ({
+                    ...prevState,
+                    url: e.target.value,
+                  }))
+                }
               />
             </label>
           </div>

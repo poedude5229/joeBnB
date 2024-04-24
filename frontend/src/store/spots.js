@@ -70,7 +70,7 @@ export const createASpot = (spot, images) => async (dispatch) => {
   }
   if (res.ok) {
     let newSpot = await res.json();
-    let newImgs = imgURLs.forEach((url) => {
+    imgURLs.forEach((url) => {
       url &&
         csrfFetch(`/api/spots/${newSpot.id}/images`, {
           method: "POST",
@@ -81,7 +81,7 @@ export const createASpot = (spot, images) => async (dispatch) => {
           }),
         });
     });
-    await dispatch(createSpot(newSpot, newImgs));
+    await dispatch(createSpot(newSpot));
     return newSpot;
   }
 };

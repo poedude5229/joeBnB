@@ -1,5 +1,5 @@
 const express = require("express");
-const { check, query, validationResult} = require("express-validator");
+const { check, query, validationResult } = require("express-validator");
 const { Op, sequelize } = require("sequelize");
 const router = express.Router();
 const { requireAuth } = require("../../utils/auth");
@@ -190,8 +190,8 @@ router.get("/", checkQuery, handleQueryValidationErrors, async (req, res) => {
   //  }
   let response = { Spots: fixed };
   // if (req.query.size) {
-    response.page = +page;
-    response.size = +size;
+  response.page = +page;
+  response.size = +size;
   // }
 
   res.status(200).json(response);
@@ -440,9 +440,11 @@ router.put("/:spotId", requireAuth, validateSpot, async (req, res) => {
 });
 
 router.post("/:spotId/images", requireAuth, async (req, res) => {
+  // console.log("\n\n HELLOOOOOOOOOOOO \n\n");
   let { spotId } = req.params;
 
   let { url, preview } = req.body;
+  // console.log(req.body, "\n\n");
 
   let spot = await Spot.findByPk(spotId);
 
@@ -461,7 +463,6 @@ router.post("/:spotId/images", requireAuth, async (req, res) => {
     url,
     preview,
   });
-
   return res.status(200).json({
     id: newImage.id,
     url: newImage.url,
