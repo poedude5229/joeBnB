@@ -43,7 +43,20 @@ function DetailsPage() {
   const [showModal, setShowModal] = useState(false);
 
   const toggleModal = () => setShowModal(!showModal);
-
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
   return (
     <div>
       {selected && (
@@ -131,9 +144,21 @@ function DetailsPage() {
                           : ` ${rv.length} review`} */}
                       </h3>
                     </div>
-                    <ul>
-                      {rv.map((review) => (
-                        <li key={review.id}>{review.review}</li>
+                    <ul style={{ listStyle: "none" }}>
+                      {rv.reverse().map((review) => (
+                        <li key={review.id}>
+                          <h4>
+                            {review.User.firstName +
+                              `, ${
+                                months[review.createdAt.slice(0, 1) - 1]
+                              } ${review.createdAt.slice(5, 9)}`}
+                          </h4>
+                          <p>
+                            <FaStar />
+                            <b> {review.stars} stars</b>
+                          </p>
+                          <p>{review.review}</p>
+                        </li>
                       ))}
                     </ul>
                   </div>

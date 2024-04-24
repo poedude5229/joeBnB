@@ -35,8 +35,8 @@ function ProfileButton({ user }) {
 
   return (
     <>
-      <button onClick={toggleMenu}>
-        <i className="fas fa-user-circle" />
+      <button onClick={toggleMenu} style={{ cursor: "pointer" }}>
+        <i className="fas fa-user-circle" style={{ cursor: "pointer" }} />
       </button>
       <ul className={ulClassName} ref={ulRef}>
         <li>

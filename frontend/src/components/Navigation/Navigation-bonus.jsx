@@ -59,6 +59,7 @@ function Navigation({ isLoaded }) {
           height: "70px",
           boxShadow: "2px 2px 5px #002855",
           backgroundColor: "white",
+          listStyle: "none",
         }}
       >
         <li>
@@ -67,7 +68,7 @@ function Navigation({ isLoaded }) {
           </NavLink>
         </li>
         {isLoaded && (
-          <li>
+          <li style={{ cursor: "hover" }}>
             <ProfileButton user={sessionUser} />
           </li>
         )}

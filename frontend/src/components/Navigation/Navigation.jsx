@@ -34,7 +34,7 @@ function Navigation({ isLoaded }) {
   );
 
   return (
-    <ul>
+    <ul style={{ listStyle: "none" }}>
       <li>
         <NavLink to="/">Home</NavLink>
       </li>
