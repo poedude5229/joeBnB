@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { createSpotReview } from "../../store/reviews";
 import { FaRegStar } from "react-icons/fa";
 import { FaStar } from "react-icons/fa";
+// import { showModal, setShowModal } from "../Spot/Spot";
 import "./modal.css";
 const MakeReview = () => {
   let dispatch = useDispatch();
@@ -47,6 +48,7 @@ const MakeReview = () => {
 
     dispatch(createSpotReview(newReview, spotId));
     resetStates();
+    setShowModal(false);
   };
 
   let existing = reviews?.find((review) => review.userId === sessionUser);

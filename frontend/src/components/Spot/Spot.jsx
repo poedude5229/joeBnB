@@ -7,6 +7,7 @@ import { spotReviews } from "../../store/reviews";
 import "../../../public/assets/index-167b04b0.css";
 import MakeReview from "../Reviews/MakeReview";
 import "./modal.css";
+import { FaStar } from "react-icons/fa";
 function DetailsPage() {
   let { spotId } = useParams();
   let dispatch = useDispatch();
@@ -25,6 +26,9 @@ function DetailsPage() {
   });
   //   console.log(rv);
   let average = (sum / rv.length).toFixed(1);
+  if (average % 1 === 0) {
+    average = (+average).toFixed(0);
+  }
   //   console.log(average);
   let stringAvg = average.toString();
   let sessionUser = useSelector((state) => state.session.user);
@@ -86,6 +90,13 @@ function DetailsPage() {
                       </button>
                     )}
                   <div className="reviewBoard">
+                    {sessionUser && sessionUser?.id !== selected.ownerId && (
+                      <button
+                        onClick={() => window.alert("Feature coming soon...")}
+                      >
+                        Reserve
+                      </button>
+                    )}
                     <div
                       className="reviewHeader"
                       style={{
@@ -95,15 +106,25 @@ function DetailsPage() {
                       }}
                     >
                       <h3>
-                        {stringAvg[stringAvg.length - 1] === 0
-                          ? `${average} stars · `
-                          : `${stringAvg} stars · `}
+                        {rv.length > 0 ? (
+                          <FaStar style={{ color: "#EAAA00" }} />
+                        ) : null}
+                        {rv.length > 0
+                          ? average % 1 !== 0
+                            ? `${average} stars · `
+                            : `${stringAvg} stars · `
+                          : ""}
                       </h3>
 
                       <h3>
-                        {rv.length > 1
+                        {rv.length === 0
+                          ? "New"
+                          : rv.length > 1
+                          ? `${rv.length} reviews`
+                          : `1 review`}
+                        {/* {rv.length > 1
                           ? ` ${rv.length} reviews`
-                          : ` ${rv.length} review`}
+                          : ` ${rv.length} review`} */}
                       </h3>
                     </div>
                     <ul>
