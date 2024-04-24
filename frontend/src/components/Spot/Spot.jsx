@@ -145,7 +145,7 @@ function DetailsPage() {
                       </h3>
                     </div>
                     <ul style={{ listStyle: "none" }}>
-                      {rv.reverse().map((review) => (
+                      {rv?.reverse().map((review) => (
                         <li key={review.id}>
                           <h4>
                             {review.User.firstName +

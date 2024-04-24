@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 import * as sessionActions from "../../store/session";
-
+// import { NavLink } from "react-router-dom";
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
@@ -39,11 +39,12 @@ function ProfileButton({ user }) {
         <i className="fas fa-user-circle" style={{ cursor: "pointer" }} />
       </button>
       <ul className={ulClassName} ref={ulRef}>
-        <li>
-          Hello, {user.firstName} {user.lastName}
-        </li>
+        <li>Hello, {user.firstName}</li>
         <li>{user.userName}</li>
         <li>{user.email}</li>
+        {/* <li>
+          <NavLink to="/">Create a new spot</NavLink>
+        </li> */}
         <li>
           <button onClick={logout}>Log Out</button>
         </li>

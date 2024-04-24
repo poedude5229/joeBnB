@@ -54,21 +54,27 @@ function Navigation({ isLoaded }) {
           borderRadius: "10px ",
           border: "1px solid gray",
           paddingRight: "40px",
-          paddingLeft: "35px",
-          width: "50px",
-          height: "70px",
+          paddingLeft: "15px",
+          width: "100px",
+          height: "100px",
           boxShadow: "2px 2px 5px #002855",
           backgroundColor: "white",
           listStyle: "none",
+          display: "flex",
+          flexFlow: "row-wrap",
+          justifyContent: "space-between",
+          alignItems: "center",
         }}
       >
-        <li>
+        <li style={{ paddingRight: "10px" }}>
           <NavLink to="/" style={{ fontSize: "20px" }}>
             Home
           </NavLink>
         </li>
+
+        {sessionUser && <NavLink to="/">Create a new spot</NavLink>}
         {isLoaded && (
-          <li style={{ cursor: "hover" }}>
+          <li style={{ cursor: "hover", paddingLeft: "10px" }}>
             <ProfileButton user={sessionUser} />
           </li>
         )}
