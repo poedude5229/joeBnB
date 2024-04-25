@@ -6,6 +6,7 @@ import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
 import { useNavigate } from "react-router-dom";
 import { NavLink } from "react-router-dom";
+// import { FaUserCircle } from "react-icons/fa";
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
@@ -43,8 +44,9 @@ function ProfileButton({ user }) {
 
   return (
     <>
-      <button onClick={toggleMenu}>
+      <button onClick={toggleMenu} style={{ cursor: "pointer" }}>
         <i className="fas fa-user-circle" style={{ cursor: "pointer" }} />
+        {/* <FaUserCircle /> */}
       </button>
       <br />
       <ul className={ulClassName} ref={ulRef}>
@@ -52,9 +54,13 @@ function ProfileButton({ user }) {
           <>
             <li>Hello, {user.firstName}</li>
             <li>{user.email}</li>
-            <li><NavLink to="/">Manage Spots</NavLink></li>
             <li>
-              <button onClick={logout}>Log Out</button>
+              <NavLink to="/manage">Manage Spots</NavLink>
+            </li>
+            <li>
+              <button onClick={logout} style={{ cursor: "pointer" }}>
+                Log Out
+              </button>
             </li>
           </>
         ) : (
