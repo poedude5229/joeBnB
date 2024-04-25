@@ -78,7 +78,7 @@ function UpdateSpot() {
   return (
     <div>
       <h1>Update your Spot</h1>
-      <form>
+      <form onSubmit={handleSubmit}>
         <section id="inputContainer">
           <h2>Where&#39;s your spot located?</h2>
           <p>
