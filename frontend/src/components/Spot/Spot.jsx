@@ -161,6 +161,27 @@ function DetailsPage() {
                           {sessionUser && sessionUser.id === review.userId && (
                             <button onClick={toggleDeleteModal}>Delete</button>
                           )}
+                          {showDeleteModal && (
+                            <div className="modal" onClick={toggleDeleteModal}>
+                              <div
+                                className="modal-content"
+                                onClick={(e) => e.stopPropagation()}
+                              >
+                                <span
+                                  className="close"
+                                  style={{ cursor: "pointer" }}
+                                  onClick={toggleDeleteModal}
+                                >
+                                  X
+                                </span>
+                                <h2>Delete Review</h2>
+                                <p>
+                                  Are you sure you want to delete this review?
+                                </p>
+                                <button>Delete Review</button>
+                              </div>
+                            </div>
+                          )}
                         </li>
                       ))}
                     </ul>
@@ -184,19 +205,6 @@ function DetailsPage() {
             </span>
 
             <MakeReview closeModal={closeModal} />
-          </div>
-        </div>
-      )}
-      {showDeleteModal && (
-        <div className="modal" onClick={toggleDeleteModal}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <span
-              className="close"
-              style={{ cursor: "pointer" }}
-              onClick={toggleDeleteModal}
-            >
-              X
-            </span>
           </div>
         </div>
       )}
