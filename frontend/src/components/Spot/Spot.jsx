@@ -11,22 +11,24 @@ import { FaStar } from "react-icons/fa";
 function DetailsPage() {
   let { spotId } = useParams();
   let dispatch = useDispatch();
+  const [toggleOne, setToggleOne] = useState(false);
   useEffect(() => {
     dispatch(spotDetails(spotId));
     dispatch(spotReviews(spotId));
-  }, [dispatch, spotId]);
+  }, [dispatch, toggleOne]);
 
   const closeModal = () => {
     setShowModal(false);
+    setToggleOne(true);
   };
 
   let spot = useSelector((state) => state.spots);
   let selected = spot[spotId];
   let reviews = useSelector((state) => state.reviews);
   let rv = Object.values(reviews);
-  console.log("Reviews: " + rv);
+  // console.log("Reviews: " + rv);
   let reversedReviews = rv.reverse();
-  console.log("reversedReviews: " + reversedReviews);
+  // console.log("reversedReviews: " + reversedReviews);
   const handleDelete = async () => {
     const reviewToDelete = rv.find(
       (review) => review.userId === sessionUser.id
@@ -35,9 +37,9 @@ function DetailsPage() {
       await dispatch(deleteReviewThunk(reviewToDelete.id));
       toggleDeleteModal();
     }
-    console.log(reviewToDelete);
+    // console.log(reviewToDelete);
   };
-  console.log(reversedReviews);
+  // console.log(reversedReviews);
   let sum = 0;
   rv.forEach((review) => {
     sum += review.stars;

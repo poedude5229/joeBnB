@@ -43,7 +43,7 @@ function CreateSpot() {
       description,
       price,
     };
-    console.log(images);
+    // console.log(images);
 
     // spot.spotImages = Object.values(images);
     let newSpot = await dispatch(createASpot(spot, images));
