@@ -9,28 +9,29 @@ function ManageSpots() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
-
+  const [deleted, setDeleted] = useState(false);
   const spots = useSelector((state) => state.spots);
   const spotsArray = Object.values(spots);
 
   const toggleModal = () => setShowModal(!showModal);
-  useEffect(() => {
-    dispatch(userSpots());
-  }, [dispatch]);
 
   //   const closeModal = () => {
   //     setShowModal(false);
   //   };
   const handleDelete = async (spotId) => {
     try {
+      // window.location.reload(); // Dispatch deleteUserSpot thunk with spotId
       await dispatch(deleteUserSpot(spotId));
-      window.location.reload(); // Dispatch deleteUserSpot thunk with spotId
+      setDeleted(!deleted);
       toggleModal(); // Close the modal after successful deletion
     } catch (error) {
       console.error("Error deleting spot:", error);
       // Handle error or display error message
     }
   };
+  useEffect(() => {
+    dispatch(userSpots());
+  }, [dispatch, deleted]);
   return (
     <>
       <h1>Manage Spots</h1>
