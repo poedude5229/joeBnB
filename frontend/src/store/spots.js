@@ -47,8 +47,8 @@ export const deleteUserSpot = (spotId) => async (dispatch) => {
   res.json("Successfully Deleted");
 };
 
-export const updateCurrent = (spot, spotId) => async (dispatch) => {
-  let res = await csrfFetch(`/apit/spots/${spotId}`, {
+export const updateCurrentSpot = (spot, spotId) => async (dispatch) => {
+  let res = await csrfFetch(`/api/spots/${spotId}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(spot),

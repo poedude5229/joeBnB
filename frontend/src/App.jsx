@@ -10,6 +10,7 @@ import Homepage from "./components/Homepage/Homepage";
 import DetailsPage from "./components/Spot/Spot";
 import CreateSpot from "./components/Spot/CreateSpot";
 import ManageSpots from "./components/Spot/ManageSpots";
+import UpdateSpot from "./components/Spot/UpdateSpot";
 function Layout() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -49,10 +50,10 @@ const router = createBrowserRouter([
         path: "/manage",
         element: <ManageSpots />,
       },
-      // {
-      //   path: 'signup',
-      //   element: <SignupFormPage />
-      // }
+      {
+        path: "spots/:spotId/update-spot",
+        element: <UpdateSpot />,
+      },
     ],
   },
 ]);

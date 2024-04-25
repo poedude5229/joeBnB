@@ -74,7 +74,11 @@ function ManageSpots() {
                   marginLeft: "290px",
                 }}
               >
-                <button>Update</button>
+                <button
+                  onClick={() => navigate(`/spots/${spot.id}/update-spot`)}
+                >
+                  Update
+                </button>
                 <button onClick={toggleModal}>Delete</button>
               </div>
               {showModal && (
