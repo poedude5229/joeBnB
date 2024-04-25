@@ -23,7 +23,8 @@ function ManageSpots() {
   //   };
   const handleDelete = async (spotId) => {
     try {
-      await dispatch(deleteUserSpot(spotId)); // Dispatch deleteUserSpot thunk with spotId
+      await dispatch(deleteUserSpot(spotId));
+      window.location.reload(); // Dispatch deleteUserSpot thunk with spotId
       toggleModal(); // Close the modal after successful deletion
     } catch (error) {
       console.error("Error deleting spot:", error);
@@ -76,31 +77,34 @@ function ManageSpots() {
                 <button>Update</button>
                 <button onClick={toggleModal}>Delete</button>
               </div>
+              {showModal && (
+                <div className="modal" onClick={toggleModal}>
+                  <div
+                    className="modal-content"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <span
+                      className="close"
+                      style={{ cursor: "pointer" }}
+                      onClick={toggleModal}
+                    >
+                      X
+                    </span>
+                    <h3>Confirm Delete</h3>
+                    <p>Are you sure that you want to remove this spot?</p>
+                    <br />
+                    <div>
+                      <button
+                        onClick={() => handleDelete(spot.id)}
+                      >{`Yes (Delete Spot)`}</button>
+                      <button onClick={toggleModal}>{`No (Keep Spot)`}</button>
+                      {/* <MakeReview closeModal={closeModal} /> */}
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           ))}
-        </div>
-      )}
-      {showModal && (
-        <div className="modal" onClick={toggleModal}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <span
-              className="close"
-              style={{ cursor: "pointer" }}
-              onClick={toggleModal}
-            >
-              X
-            </span>
-            <h3>Confirm Delete</h3>
-            <p>Are you sure that you want to remove this spot?</p>
-            <br />
-            <div>
-              <button
-                onClick={() => handleDelete(spot.id)}
-              >{`Yes (Delete Spot)`}</button>
-              <button onClick={toggleModal}>{`No (Keep Spot)`}</button>
-              {/* <MakeReview closeModal={closeModal} /> */}
-            </div>
-          </div>
         </div>
       )}
     </>
