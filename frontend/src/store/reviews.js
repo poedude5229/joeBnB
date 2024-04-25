@@ -10,12 +10,10 @@ const getReviews = (reviews) => {
   };
 };
 
-const delReview = (reviewId) => {
-  return {
-    type: DELETE,
-    reviewId,
-  };
-};
+const delReview = (reviewId) => ({
+  type: DELETE,
+  reviewId,
+});
 
 const makeReview = (review) => {
   return {
@@ -25,11 +23,11 @@ const makeReview = (review) => {
 };
 
 export const deleteReviewThunk = (reviewId) => async (dispatch) => {
-  let res = await csrfFetch(`/api/reviews/${reviewId}`, {
+  await csrfFetch(`/api/reviews/${reviewId}`, {
     method: "DELETE",
   });
   await dispatch(delReview(reviewId));
-  res.json(`Successfully deleted ${reviewId}`);
+  // dispatch(getReviews(spotId));
 };
 
 export const createSpotReview = (review, spotId) => async (dispatch) => {
