@@ -41,8 +41,9 @@ function DetailsPage() {
   //   console.log(existing);
 
   const [showModal, setShowModal] = useState(false);
-
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const toggleModal = () => setShowModal(!showModal);
+  const toggleDeleteModal = () => setShowDeleteModal(!showDeleteModal);
   const months = [
     "January",
     "February",
@@ -157,6 +158,9 @@ function DetailsPage() {
                             <b> {review.stars} stars</b>
                           </p>
                           <p>{review.review}</p>
+                          {sessionUser && sessionUser.id === review.userId && (
+                            <button onClick={toggleDeleteModal}>Delete</button>
+                          )}
                         </li>
                       ))}
                     </ul>
@@ -180,6 +184,19 @@ function DetailsPage() {
             </span>
 
             <MakeReview closeModal={closeModal} />
+          </div>
+        </div>
+      )}
+      {showDeleteModal && (
+        <div className="modal" onClick={toggleDeleteModal}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <span
+              className="close"
+              style={{ cursor: "pointer" }}
+              onClick={toggleDeleteModal}
+            >
+              X
+            </span>
           </div>
         </div>
       )}
