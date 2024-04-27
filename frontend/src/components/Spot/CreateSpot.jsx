@@ -24,7 +24,56 @@ function CreateSpot() {
   const [img4, setImg4] = useState({ url: "", preview: true });
   const [img5, setImg5] = useState({ url: "", preview: true });
 
-  const [errors, setErrors] = useState("");
+  const [errors, setErrors] = useState([]);
+
+  useEffect(() => {
+    let validArr = [];
+    if (name.length < 5) {
+      validArr.push("Name is required");
+    }
+    if (name.length > 30) {
+      validArr.push("Name must be less than 50 characters");
+    }
+    if (address.length < 5) {
+      validArr.push("Street address is required");
+    }
+    if (city.length < 1) {
+      validArr.push("City is required");
+    }
+    if (state.length < 1) {
+      validArr.push("State is required");
+    }
+    if (country.length < 1) {
+      validArr.push("Country is required");
+    }
+    if (lat < -90 || lat > 90) {
+      validArr.push("Latitude must be within -90 and 90");
+    }
+    if (lng < -180 || lng > 180) {
+      validArr.push("Longitude must be within -180 and 180");
+    }
+    if (description.length < 30) {
+      validArr.push("Description needs 30 or more characters");
+    }
+    if (price < 1) {
+      validArr.push("Price per night is required");
+    }
+    if (previewImage.url.length < 1) {
+      validArr.push("Preview image URL is required");
+    }
+    setErrors(validArr);
+  }, [
+    name,
+    address,
+    city,
+    state,
+    country,
+    lat,
+    lng,
+    description,
+    price,
+    previewImage.url,
+  ]);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -73,6 +122,7 @@ function CreateSpot() {
               onChange={(e) => setCountry(e.target.value)}
             />
           </label>
+          <p>{errors.filter((error) => error.includes("Country"))}</p>
           <div id="addressInputContainer">
             <label htmlFor="streetAddress">
               Street Address
@@ -85,6 +135,7 @@ function CreateSpot() {
                 onChange={(e) => setAddress(e.target.value)}
               />
             </label>
+            <p>{errors.filter((error) => error.includes("ddress"))}</p>
           </div>
           <label htmlFor="city">
             City
@@ -97,6 +148,7 @@ function CreateSpot() {
               onChange={(e) => setCity(e.target.value)}
             />
           </label>
+          <p>{errors.filter((error) => error.includes("ity"))}</p>
           <label htmlFor="state">
             State
             <input
@@ -108,6 +160,7 @@ function CreateSpot() {
               onChange={(e) => setState(e.target.value)}
             />
           </label>
+          <p>{errors.filter((error) => error.includes("tate"))}</p>
           <label htmlFor="latitude">
             Latitude
             <input
@@ -179,7 +232,7 @@ function CreateSpot() {
           <p>Submit a link to at least one photo to publish your spot</p>
           <div id="photos-input-field">
             <label htmlFor="prevImageURL">
-              Preview Image URL:{" "}
+              {"Preview Image URL:     "}
               <input
                 type="text"
                 placeholder="Preview Image Url"
@@ -193,6 +246,7 @@ function CreateSpot() {
                 }
               />
             </label>
+            <p>{errors.filter((error) => error.includes("review"))}</p>
             <label htmlFor="image2Input">
               Image 2 URL
               <input

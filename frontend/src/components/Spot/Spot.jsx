@@ -161,7 +161,7 @@ function DetailsPage() {
                       </h3>
                     </div>
                     <ul style={{ listStyle: "none" }}>
-                      {rv.map((review) => (
+                      {rv.length === 0 ? "Be the first to leave a review!" : rv.map((review) => (
                         <li key={review.id}>
                           <h4>
                             {review?.User?.firstName +
