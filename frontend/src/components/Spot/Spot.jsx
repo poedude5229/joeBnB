@@ -155,10 +155,44 @@ function DetailsPage() {
               />
             </div>
           </div>
+          <div
+            style={{
+              position: "absolute",
+              right: "12px",
+              width: "200px",
+              height: "150px",
+              border: "3px solid rgb(0, 40, 85)",
+              borderRadius: "5%",
+            }}
+          >
+            <h3 style={{ marginLeft: "20px" }}>${selected.price} per night</h3>
+            <h4 style={{ marginLeft: "20px" }}>
+              <FaStar />
+              {rv.length > 0 ? `${stringAvg} stars · ` : null}
+              {rv.length === 0
+                ? "New"
+                : rv.length > 1
+                ? `${rv.length} reviews`
+                : `1 review`}
+            </h4>
+            {sessionUser && sessionUser?.id !== selected.ownerId && (
+              <button
+                onClick={() => window.alert("Feature coming soon...")}
+                style={{
+                  marginLeft: "15px",
+                  cursor: "pointer",
+                  width: "80px",
+                  height: "30px",
+                }}
+              >
+                Reserve
+              </button>
+            )}
+          </div>
           <div className="spotInfo">
             <div className="description">
               <h3>{`Hosted by ${selected.Owner?.firstName} ${selected.Owner?.lastName}`}</h3>
-              <p>{selected?.description}</p>
+              <p style={{ width: "500px" }}>{selected?.description}</p>
               <span className="spotPrice">{`$${selected?.price} / night`}</span>
               <br />
               <span className="spotStars">
@@ -171,16 +205,6 @@ function DetailsPage() {
                         : "Be the first to leave a review!"}
                     </button>
                   )}
-                <div style={{ position: "absolute", right: "12px" }}>
-                  <h3>{ selected.price}</h3>
-                  {sessionUser && sessionUser?.id !== selected.ownerId && (
-                    <button
-                      onClick={() => window.alert("Feature coming soon...")}
-                    >
-                      Reserve
-                    </button>
-                  )}
-                </div>
                 <div className="reviewBoard">
                   <div
                     className="reviewHeader"
