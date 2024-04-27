@@ -9,10 +9,11 @@
 }
 
 .tile {
-  width: 400px;
-  height: 400px;
+  width: 300px;
+  height: 300px;
   text-decoration: none;
   position: relative;
+  padding-bottom: 10px;
 }
 
 .spotInfo:hover {
@@ -20,8 +21,8 @@
 }
 
 .tileThumbnail {
-  width: 400px;
-  height: 250px;
+  width: 300px;
+  height: 220px;
   border-radius: 3%;
   box-shadow: 2px 2px 5px black;
 }

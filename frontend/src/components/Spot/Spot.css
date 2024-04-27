@@ -1,0 +1,23 @@
+.spotDetailsImages {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Two equal columns */
+  gap: 24px;
+  margin-bottom: 24px; /* Added margin for spacing */
+}
+
+.largeThumbnail {
+  width: 100%; /* Make sure the large image takes full width of its container */
+  height: auto; /* Maintain aspect ratio */
+}
+
+.smallImagesContainer {
+  display: grid;
+  grid-template-rows: repeat(2, 1fr); /* Two rows */
+  grid-template-columns: repeat(2, 1fr); /* Two columns */
+  gap: 12px;
+}
+
+.smallImagesContainer img {
+  width: 100%; /* Make sure all small images take full width of their container */
+  height: 100%; /* Maintain aspect ratio */
+}
