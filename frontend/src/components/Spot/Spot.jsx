@@ -168,7 +168,7 @@ function DetailsPage() {
             <h3 style={{ marginLeft: "20px" }}>${selected.price} per night</h3>
             <h4 style={{ marginLeft: "20px" }}>
               <FaStar />
-              {rv.length > 0 ? `${stringAvg} stars · ` : null}
+              {rv.length > 0 ? `${average} stars · ` : null}
               {rv.length === 0
                 ? "New"
                 : rv.length > 1
