@@ -66,11 +66,11 @@ function Navigation({ isLoaded }) {
           alignItems: "center",
         }}
       >
-        <li style={{ paddingRight: "10px" }}>
+        {/* <li style={{ paddingRight: "10px" }}>
           <NavLink to="/" style={{ fontSize: "20px" }}>
             Home
           </NavLink>
-        </li>
+        </li> */}
 
         {sessionUser && <NavLink to="spots/new">Create a New Spot</NavLink>}
         {isLoaded && (
