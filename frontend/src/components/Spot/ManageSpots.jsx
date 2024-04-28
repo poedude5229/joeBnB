@@ -75,12 +75,14 @@ function ManageSpots() {
                   marginLeft: "290px",
                 }}
               >
-                <button
-                  onClick={() => navigate(`/spots/${spot.id}/update-spot`)}
-                >
-                  Update
-                </button>
-                <button onClick={toggleModal}>Delete</button>
+                <div style={{display: "flex", position: "relative", right: "280px", gap: "10px", marginTop: "10px"}}>
+                  <button
+                    onClick={() => navigate(`/spots/${spot.id}/update-spot`)}
+                  >
+                    Update
+                  </button>
+                  <button onClick={toggleModal}>Delete</button>
+                </div>
               </div>
               {showModal && (
                 <div className="modal" onClick={toggleModal}>

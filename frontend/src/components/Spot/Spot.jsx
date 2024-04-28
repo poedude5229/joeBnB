@@ -181,9 +181,13 @@ function DetailsPage() {
                 onClick={() => window.alert("Feature coming soon...")}
                 style={{
                   marginLeft: "15px",
+                  marginRight: "15px",
                   cursor: "pointer",
-                  width: "80px",
+                  width: "175px",
                   height: "30px",
+                  backgroundColor: "#EAAA00",
+                  color: "#002855",
+                  fontSize: "1em"
                 }}
               >
                 Reserve
@@ -193,11 +197,17 @@ function DetailsPage() {
           <div className="spotInfo">
             <div className="description">
               <h3>{`Hosted by ${selected.Owner?.firstName} ${selected.Owner?.lastName}`}</h3>
-              <p style={{ width: "500px" }}>{selected?.description}</p>
-              <span className="spotPrice">{`$${selected?.price} / night`}</span>
+              <p style={{ width: "500px", marginBottom: "50px" }}>{selected?.description}</p>
+              <span
+                className="spotPrice"
+                style={{ marginBottom: "20px" }}
+              >{`$${selected?.price} / night`}</span>
+              <br />
+              <hr style={{ border: "2px solid black" }} />
+
               <br />
               <span className="spotStars">
-                {!existing &&
+                {/* {!existing &&
                   sessionUser &&
                   sessionUser.id !== selected.ownerId && (
                     <button onClick={toggleModal}>
@@ -205,7 +215,7 @@ function DetailsPage() {
                         ? "Post Your Review!"
                         : "Be the first to leave a review!"}
                     </button>
-                  )}
+                  )} */}
                 <div className="reviewBoard">
                   <div
                     className="reviewHeader"
@@ -235,12 +245,29 @@ function DetailsPage() {
                           ? ` ${rv.length} reviews`
                           : ` ${rv.length} review`} */}
                     </h3>
+                    <br />
                   </div>
+                  {!existing &&
+                    sessionUser &&
+                    sessionUser.id !== selected.ownerId && (
+                      <button
+                        onClick={toggleModal}
+                        style={{ marginLeft: "56px" }}
+                      >
+                        Post Your Review!
+                      </button>
+                    )}
                   <ul style={{ listStyle: "none" }}>
                     {rv.length === 0
                       ? "Be the first to leave a review!"
                       : rv.map((review) => (
-                          <li key={review.id} style={{borderBottom: "2px solid black", width: "200px",}}>
+                          <li
+                            key={review.id}
+                            style={{
+                              borderBottom: "2px solid black",
+                              width: "200px",
+                            }}
+                          >
                             <div style={{ display: "flex", gap: "8px" }}>
                               <p>
                                 {" "}
@@ -263,7 +290,10 @@ function DetailsPage() {
                             <p>{review.review}</p>
                             {sessionUser &&
                               sessionUser.id === review.userId && (
-                                <button onClick={toggleDeleteModal} style={{marginBottom: "10px"}}>
+                                <button
+                                  onClick={toggleDeleteModal}
+                                  style={{ marginBottom: "10px" }}
+                                >
                                   Delete
                                 </button>
                               )}
