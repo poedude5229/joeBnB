@@ -9,6 +9,7 @@ import MakeReview from "../Reviews/MakeReview";
 import "./modal.css";
 import "./Spot.css";
 import { FaStar } from "react-icons/fa";
+import missingimg from './missingimg.png'
 function DetailsPage() {
   let { spotId } = useParams();
   let dispatch = useDispatch();
@@ -106,8 +107,7 @@ function DetailsPage() {
             <img
               // style={{ width: "700px", height: "500px" }}
               src={
-                selected?.SpotImages?.[0]?.url ||
-                "https://res.cloudinary.com/djuzk5um3/image/upload/v1710993252/am-bnb%20authme_Project/depositphotos_244011872-stock-illustration-image-vector-symbol-missing-available_ykibfw.webp"
+                selected?.SpotImages?.[0]?.url ||  missingimg
               }
               alt={`Spot ${spotId} preview image`}
               className="largeThumbnail"
@@ -128,32 +128,28 @@ function DetailsPage() {
               <img
                 style={{ width: "300px", height: "220px" }}
                 src={
-                  selected.SpotImages?.[1]?.url ||
-                  "https://res.cloudinary.com/djuzk5um3/image/upload/v1710993252/am-bnb%20authme_Project/depositphotos_244011872-stock-illustration-image-vector-symbol-missing-available_ykibfw.webp"
+                  selected.SpotImages?.[1]?.url || missingimg
                 }
                 alt="small spot picture one"
               />
               <img
                 style={{ width: "300px", height: "220px" }}
                 src={
-                  selected.SpotImages?.[2]?.url ||
-                  "https://res.cloudinary.com/djuzk5um3/image/upload/v1710993252/am-bnb%20authme_Project/depositphotos_244011872-stock-illustration-image-vector-symbol-missing-available_ykibfw.webp"
+                  selected.SpotImages?.[2]?.url || missingimg
                 }
                 alt="small spot picture 2"
               />
               <img
                 style={{ width: "300px", height: "220px" }}
                 src={
-                  selected.SpotImages?.[3]?.url ||
-                  "https://res.cloudinary.com/djuzk5um3/image/upload/v1710993252/am-bnb%20authme_Project/depositphotos_244011872-stock-illustration-image-vector-symbol-missing-available_ykibfw.webp"
+                  selected.SpotImages?.[3]?.url || missingimg
                 }
                 alt="small spot picture 3"
               />
               <img
                 style={{ width: "300px", height: "220px" }}
                 src={
-                  selected.SpotImages?.[4]?.url ||
-                  "https://res.cloudinary.com/djuzk5um3/image/upload/v1710993252/am-bnb%20authme_Project/depositphotos_244011872-stock-illustration-image-vector-symbol-missing-available_ykibfw.webp"
+                  selected.SpotImages?.[4]?.url || missingimg
                 }
                 alt="small spot picture 4"
               />
