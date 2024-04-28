@@ -35,9 +35,12 @@ function ManageSpots() {
   return (
     <>
       <h1>Manage Spots</h1>
+      <NavLink to="/spots/new" style={{display: "flex", width: "150px", height: "30px", backgroundColor: "#002855", color: "#EAAA00", textDecoration: "none", justifyContent: "center", alignContent: "center"}}>Create a New Spot</NavLink>
       {spotsArray.length === 0 ? (
         <div className="noSpotsMessage">
-          <NavLink to="/spots/new">Create a New Spot</NavLink>
+          {/* <NavLink to="/spots/new">Create a New Spot</NavLink>
+           */}
+          <p></p>
         </div>
       ) : (
         <div className="spotContainer">
@@ -89,6 +92,7 @@ function ManageSpots() {
                   <div
                     className="modal-content"
                     onClick={(e) => e.stopPropagation()}
+                    // style={{display: "flex", flexDirection: "column"}}
                   >
                     <span
                       className="close"
@@ -100,11 +104,11 @@ function ManageSpots() {
                     <h3>Confirm Delete</h3>
                     <p>Are you sure that you want to remove this spot?</p>
                     <br />
-                    <div>
+                    <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
                       <button
-                        onClick={() => handleDelete(spot.id)}
+                        onClick={() => handleDelete(spot.id)} style={{width: "280px", height: "50px", fontSize: "1em", backgroundColor: "red", cursor: "pointer"}}
                       >{`Yes (Delete Spot)`}</button>
-                      <button onClick={toggleModal}>{`No (Keep Spot)`}</button>
+                      <button onClick={toggleModal} style={{width: "280px", height: "50px", fontSize: "1em", backgroundColor: "grey", cursor: "pointer"}}>{`No (Keep Spot)`}</button>
                       {/* <MakeReview closeModal={closeModal} /> */}
                     </div>
                   </div>
