@@ -10,7 +10,7 @@ function LoginFormPage() {
   const [credential, setCredential] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
-  const [errorMessage, setErrorMessage] = useState("");
+  // const [errorMessage, setErrorMessage] = useState("");
   // const [errorArray, setErrorArray] = useState([])
   if (sessionUser) return <Navigate to="/" replace={true} />;
 
@@ -55,7 +55,7 @@ function LoginFormPage() {
           />
         </label>
         {errors.credential && <p>{errors.credential}</p>}
-        
+
         <button type="submit">Log In</button>
       </form>
     </>

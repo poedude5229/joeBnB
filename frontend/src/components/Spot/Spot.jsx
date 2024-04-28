@@ -16,11 +16,12 @@ function DetailsPage() {
   useEffect(() => {
     dispatch(spotDetails(spotId));
     dispatch(spotReviews(spotId));
-  }, [dispatch, toggleOne]);
+  }, [dispatch, spotId, toggleOne]);
 
   const closeModal = () => {
     setToggleOne(true);
     setShowModal(false);
+    dispatch(spotReviews(spotId));
   };
 
   let spot = useSelector((state) => state.spots);
@@ -241,7 +242,7 @@ function DetailsPage() {
                       : rv.map((review) => (
                           <li key={review.id}>
                             <h4>
-                              {review?.User?.firstName +
+                              {review.User?.firstName +
                                 `, ${
                                   months[review.createdAt?.slice(0, 1) - 1]
                                 } ${review.createdAt?.slice(5, 9)}`}

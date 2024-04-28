@@ -26,7 +26,7 @@ function UpdateSpot() {
   const [errors, setErrors] = useState([]);
   useEffect(() => {
     dispatch(spotDetails(spotId));
-  }, []);
+  }, [dispatch, spotId]);
 
   useEffect(() => {
     let errorArray = [];
