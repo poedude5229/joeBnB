@@ -240,13 +240,22 @@ function DetailsPage() {
                     {rv.length === 0
                       ? "Be the first to leave a review!"
                       : rv.map((review) => (
-                          <li key={review.id}>
-                            <h4>
-                              {review.User?.firstName +
-                                `, ${
-                                  months[review.createdAt?.slice(0, 1) - 1]
-                                } ${review.createdAt?.slice(5, 9)}`}
-                            </h4>
+                          <li key={review.id} style={{borderBottom: "2px solid black", width: "200px"}}>
+                            <div style={{ display: "flex", gap: "8px" }}>
+                              <p>
+                                {" "}
+                                <b>
+                                  {review.User?.firstName ||
+                                    sessionUser.firstName}{" "}
+                                </b>
+                              </p>
+                              <p>
+                                {" "}
+                                {months[review.createdAt?.slice(0, 1) - 1]}
+                                {", "}
+                                {review.createdAt?.slice(5, 9)}
+                              </p>
+                            </div>
                             <p>
                               <FaStar />
                               <b> {review.stars} stars</b>
@@ -254,7 +263,7 @@ function DetailsPage() {
                             <p>{review.review}</p>
                             {sessionUser &&
                               sessionUser.id === review.userId && (
-                                <button onClick={toggleDeleteModal}>
+                                <button onClick={toggleDeleteModal} style={{marginBottom: "10px"}}>
                                   Delete
                                 </button>
                               )}
