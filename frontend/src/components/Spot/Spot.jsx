@@ -240,7 +240,7 @@ function DetailsPage() {
                     {rv.length === 0
                       ? "Be the first to leave a review!"
                       : rv.map((review) => (
-                          <li key={review.id} style={{borderBottom: "2px solid black", width: "200px"}}>
+                          <li key={review.id} style={{borderBottom: "2px solid black", width: "200px",}}>
                             <div style={{ display: "flex", gap: "8px" }}>
                               <p>
                                 {" "}
