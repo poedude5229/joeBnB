@@ -29,7 +29,7 @@ function CreateSpot() {
   useEffect(() => {
     let validArr = [];
     if (name.length < 5) {
-      validArr.push("Name is required");
+      validArr.push("Name is required (Must be at least 5 characters)");
     }
     if (name.length > 30) {
       validArr.push("Name must be less than 50 characters");
