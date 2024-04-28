@@ -19,7 +19,7 @@ function DetailsPage() {
   }, [dispatch, spotId, toggleOne]);
 
   const closeModal = () => {
-    setToggleOne(true);
+    setToggleOne(!toggleOne);
     setShowModal(false);
     dispatch(spotReviews(spotId));
   };
