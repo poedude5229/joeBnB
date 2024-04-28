@@ -39,16 +39,25 @@ function LoginFormModal() {
   }, [credential, password]);
 
   return (
-    <div className="loginBox">
-      <h1>Log In</h1>
+    <div className="loginBox" style={{ display: "flex" }}>
+      <h1 style={{ textAlign: "center" }}>Log In</h1>
       {errorMessage && (
         <p style={{ backgroundColor: "#000000b3", color: "red" }}>
           {errorMessage}
         </p>
       )}
-      <form onSubmit={handleSubmit}>
-        <label>
-          Username or Email
+      <form
+        onSubmit={handleSubmit}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          marginLeft: "auto",
+          marginRight: "auto",
+          gap: "8px",
+        }}
+      >
+        <label style={{ paddingRight: "8px" }}>
+          Username or Email:{" "}
           <input
             type="text"
             value={credential}
@@ -56,8 +65,8 @@ function LoginFormModal() {
             required
           />
         </label>
-        <label>
-          Password
+        <label style={{ paddingRight: "8px" }}>
+          Password:{" "}
           <input
             type="password"
             value={password}
@@ -66,11 +75,20 @@ function LoginFormModal() {
           />
         </label>
         {errors.credential && <p>{errors.credential}</p>}
-        <button type="submit" disabled={submitBlock}>
+        <button
+          type="submit"
+          disabled={submitBlock}
+          style={
+            submitBlock === false
+              ? { cursor: "pointer" }
+              : { cursor: "not-allowed" }
+          }
+        >
           Log In
         </button>
         <button
           type="submit"
+          style={{ cursor: "pointer" }}
           onClick={() => {
             setCredential("Demo-lition"), setPassword("password");
           }}

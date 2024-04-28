@@ -102,9 +102,22 @@ function CreateSpot() {
   }
 
   return (
-    <div>
-      <h1>Create a New Spot</h1>
-      <form>
+    <div
+      style={{
+        marginLeft: "auto",
+        marginRight: "auto",
+        display: "flex",
+        flexDirection: "column",
+        width: "500px",
+      }}
+    >
+      <h1
+        style={{ marginLeft: "auto", marginRight: "auto", textAlign: "left" }}
+      >
+        Create a New Spot
+      </h1>
+
+      <form style={{ marginLeft: "auto", marginRight: "auto" }}>
         <section id="inputContainer">
           <h2>Where&#39;s your spot located?</h2>
           <p>
@@ -113,6 +126,7 @@ function CreateSpot() {
           </p>
           <label htmlFor="Country">
             Country
+            <br />
             <input
               id="Country"
               name="Country"
@@ -122,10 +136,19 @@ function CreateSpot() {
               onChange={(e) => setCountry(e.target.value)}
             />
           </label>
-          <p>{errors.filter((error) => error.includes("Country"))}</p>
+          <p
+            style={{
+              color: "red",
+              backgroundColor: "rgb(0,0,0)",
+              width: "180px",
+            }}
+          >
+            {errors.filter((error) => error.includes("Country"))}
+          </p>
           <div id="addressInputContainer">
             <label htmlFor="streetAddress">
               Street Address
+              <br />
               <input
                 type="text"
                 id="streetAddress"
@@ -135,7 +158,15 @@ function CreateSpot() {
                 onChange={(e) => setAddress(e.target.value)}
               />
             </label>
-            <p>{errors.filter((error) => error.includes("ddress"))}</p>
+            <p
+              style={{
+                backgroundColor: "rgb(0,0,0)",
+                color: "red",
+                width: "180px",
+              }}
+            >
+              {errors.filter((error) => error.includes("ddress"))}
+            </p>
           </div>
           <label htmlFor="city">
             City
@@ -148,7 +179,15 @@ function CreateSpot() {
               onChange={(e) => setCity(e.target.value)}
             />
           </label>
-          <p>{errors.filter((error) => error.includes("ity"))}</p>
+          <p
+            style={{
+              backgroundColor: "rgb(0, 0, 0)",
+              color: "red",
+              width: "180px",
+            }}
+          >
+            {errors.filter((error) => error.includes("ity"))}
+          </p>
           <label htmlFor="state">
             State
             <input
@@ -160,29 +199,40 @@ function CreateSpot() {
               onChange={(e) => setState(e.target.value)}
             />
           </label>
-          <p>{errors.filter((error) => error.includes("tate"))}</p>
-          <label htmlFor="latitude">
-            Latitude
-            <input
-              type="number"
-              id="latitude"
-              name="latitude"
-              placeholder="Latitude"
-              value={lat}
-              onChange={(e) => setLat(e.target.value)}
-            />
-          </label>
-          <label htmlFor="longitude">
-            Longitude
-            <input
-              type="number"
-              id="longitude"
-              name="longitude"
-              placeholder="Longitude"
-              value={lng}
-              onChange={(e) => setLng(e.target.value)}
-            />
-          </label>
+          <p
+            style={{
+              backgroundColor: "rgb(0,0,0)",
+              color: "red",
+              width: "180px",
+            }}
+          >
+            {errors.filter((error) => error.includes("tate"))}
+          </p>
+          <div>
+            <label htmlFor="latitude">
+              Latitude
+              <input
+                type="number"
+                id="latitude"
+                name="latitude"
+                placeholder="Latitude"
+                value={lat}
+                onChange={(e) => setLat(e.target.value)}
+              />
+            </label>
+            <br />
+            <label htmlFor="longitude">
+              Longitude
+              <input
+                type="number"
+                id="longitude"
+                name="longitude"
+                placeholder="Longitude"
+                value={lng}
+                onChange={(e) => setLng(e.target.value)}
+              />
+            </label>
+          </div>
         </section>
         <section id="descriptionContainer">
           <h2>Describe your place to guests!</h2>
@@ -246,7 +296,15 @@ function CreateSpot() {
                 }
               />
             </label>
-            <p>{errors.filter((error) => error.includes("review"))}</p>
+            <p
+              style={{
+                color: "red",
+                backgroundColor: "rgb(0,0,0)",
+                width: "180px",
+              }}
+            >
+              {errors.filter((error) => error.includes("review"))}
+            </p>
             <label htmlFor="image2Input">
               Image 2 URL
               <input
