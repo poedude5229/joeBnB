@@ -53,7 +53,7 @@ function ProfileButton({ user }) {
         {user ? (
           <>
             <li>Hello, {user.firstName}</li>
-            <li>{user.email}</li>
+            <li style={{borderBottom: "2px solid black", width: "100px", overflow: "hidden"}}>{user.email}</li>
             <li>
               <NavLink to="/manage">Manage Spots</NavLink>
             </li>

@@ -124,7 +124,10 @@ function CreateSpot() {
             Guests will only get your exact address once they booked a
             reservation
           </p>
-          <label htmlFor="Country">
+          <label
+            htmlFor="Country"
+            style={{ display: "flex", flexDirection: "column" }}
+          >
             Country
             <br />
             <input
@@ -145,6 +148,7 @@ function CreateSpot() {
           >
             {errors.filter((error) => error.includes("Country"))}
           </p>
+          <hr />
           <div id="addressInputContainer">
             <label htmlFor="streetAddress">
               Street Address
@@ -167,48 +171,57 @@ function CreateSpot() {
             >
               {errors.filter((error) => error.includes("ddress"))}
             </p>
+            <hr />
           </div>
-          <label htmlFor="city">
-            City
-            <input
-              type="text"
-              id="city"
-              name="city"
-              placeholder="City"
-              value={city}
-              onChange={(e) => setCity(e.target.value)}
-            />
-          </label>
-          <p
-            style={{
-              backgroundColor: "rgb(0, 0, 0)",
-              color: "red",
-              width: "180px",
-            }}
-          >
-            {errors.filter((error) => error.includes("ity"))}
-          </p>
-          <label htmlFor="state">
-            State
-            <input
-              type="text"
-              id="state"
-              name="state"
-              placeholder="State"
-              value={state}
-              onChange={(e) => setState(e.target.value)}
-            />
-          </label>
-          <p
-            style={{
-              backgroundColor: "rgb(0,0,0)",
-              color: "red",
-              width: "180px",
-            }}
-          >
-            {errors.filter((error) => error.includes("tate"))}
-          </p>
-          <div>
+          <div style={{ display: "flex", gap: "40px" }}>
+            <label htmlFor="city">
+              City
+              <br />
+              <input
+                type="text"
+                id="city"
+                name="city"
+                placeholder="City"
+                value={city}
+                onChange={(e) => setCity(e.target.value)}
+                style={{ width: "370px" }}
+              />
+            </label>
+
+            <label htmlFor="state">
+              State
+              <br />
+              <input
+                type="text"
+                id="state"
+                name="state"
+                placeholder="State"
+                value={state}
+                onChange={(e) => setState(e.target.value)}
+              />
+            </label>
+          </div>
+          <div style={{ display: "flex", flexDirection: "row", gap: "8px" }}>
+            <p
+              style={{
+                backgroundColor: "rgb(0, 0, 0)",
+                color: "red",
+                width: "180px",
+              }}
+            >
+              {errors.filter((error) => error.includes("ity"))}
+            </p>
+            <p
+              style={{
+                backgroundColor: "rgb(0,0,0)",
+                color: "red",
+                width: "180px",
+              }}
+            >
+              {errors.filter((error) => error.includes("tate"))}
+            </p>
+          </div>
+          <div style={{ display: "flex", flexDirection: "row", gap: "24px" }}>
             <label htmlFor="latitude">
               Latitude
               <input
@@ -220,7 +233,7 @@ function CreateSpot() {
                 onChange={(e) => setLat(e.target.value)}
               />
             </label>
-            <br />
+
             <label htmlFor="longitude">
               Longitude
               <input
@@ -249,6 +262,15 @@ function CreateSpot() {
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           ></textarea>
+          <p
+            style={{
+              backgroundColor: "rgb(0,0,0)",
+              color: "red",
+              width: "300px",
+            }}
+          >
+            {errors.filter((error) => error.includes("cription"))}
+          </p>
         </section>
         <section>
           <h2>Create a title for your spot</h2>
@@ -262,6 +284,15 @@ function CreateSpot() {
             onChange={(e) => setName(e.target.value)}
             placeholder="Name of your spot"
           />
+          <p
+            style={{
+              color: "red",
+              backgroundColor: "rgb(0,0,0)",
+              width: "180px",
+            }}
+          >
+            {errors.filter((error) => error.includes("Name"))}
+          </p>
         </section>
         <section>
           <h2>Set a base price for your spot</h2>
@@ -280,9 +311,9 @@ function CreateSpot() {
         <section id="photos-input-section">
           <h2>Liven up your spot with photos</h2>
           <p>Submit a link to at least one photo to publish your spot</p>
-          <div id="photos-input-field">
+          <div id="photos-input-field" style={{display: "flex", flexDirection: "column", gap: "10px"}}>
             <label htmlFor="prevImageURL">
-              {"Preview Image URL:     "}
+              {/* {"Preview Image URL:     "} */}
               <input
                 type="text"
                 placeholder="Preview Image Url"
@@ -294,6 +325,7 @@ function CreateSpot() {
                     url: e.target.value,
                   }))
                 }
+                style={{width: "540px"}}
               />
             </label>
             <p
@@ -306,7 +338,7 @@ function CreateSpot() {
               {errors.filter((error) => error.includes("review"))}
             </p>
             <label htmlFor="image2Input">
-              Image 2 URL
+              {/* Image 2 URL */}
               <input
                 type="text"
                 placeholder="Image URL"
@@ -318,10 +350,11 @@ function CreateSpot() {
                     url: e.target.value,
                   }))
                 }
+                style={{width: "540px"}}
               />
             </label>
             <label htmlFor="image3Input">
-              Image 3 URL
+              {/* Image 3 URL */}
               <input
                 id="image3Input"
                 type="text"
@@ -333,10 +366,11 @@ function CreateSpot() {
                     url: e.target.value,
                   }))
                 }
+                style={{width: "540px"}}
               />
             </label>
             <label htmlFor="image4Input">
-              Image 4 URL
+              {/* Image 4 URL */}
               <input
                 type="text"
                 id="image4Input"
@@ -348,10 +382,11 @@ function CreateSpot() {
                     url: e.target.value,
                   }))
                 }
+                style={{width: "540px"}}
               />
             </label>
             <label htmlFor="image5Input">
-              Image 5 URL
+
               <input
                 type="text"
                 id="image5Input"
@@ -363,11 +398,13 @@ function CreateSpot() {
                     url: e.target.value,
                   }))
                 }
+                style={{width: "540px"}}
               />
             </label>
           </div>
         </section>
-        <button onClick={handleSubmit}>Create Spot</button>
+        <hr />
+        <button style={{marginTop: "5px", position: "relative", left: "210px", width: "130px",height: "40px",boxShadow: "2px 3px 5px #EAAA00", backgroundColor: "#002855", color: "#EAAA00", fontSize: "1em"}} onClick={handleSubmit}>Create Spot</button>
       </form>
     </div>
   );

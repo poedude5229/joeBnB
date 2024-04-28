@@ -105,7 +105,10 @@ function DetailsPage() {
           >
             <img
               // style={{ width: "700px", height: "500px" }}
-              src={selected?.SpotImages?.[0]?.url}
+              src={
+                selected?.SpotImages?.[0]?.url ||
+                "https://res.cloudinary.com/djuzk5um3/image/upload/v1710993252/am-bnb%20authme_Project/depositphotos_244011872-stock-illustration-image-vector-symbol-missing-available_ykibfw.webp"
+              }
               alt={`Spot ${spotId} preview image`}
               className="largeThumbnail"
             />
@@ -187,7 +190,7 @@ function DetailsPage() {
                   height: "30px",
                   backgroundColor: "#EAAA00",
                   color: "#002855",
-                  fontSize: "1em"
+                  fontSize: "1em",
                 }}
               >
                 Reserve
@@ -197,7 +200,9 @@ function DetailsPage() {
           <div className="spotInfo">
             <div className="description">
               <h3>{`Hosted by ${selected.Owner?.firstName} ${selected.Owner?.lastName}`}</h3>
-              <p style={{ width: "500px", marginBottom: "50px" }}>{selected?.description}</p>
+              <p style={{ width: "500px", marginBottom: "50px" }}>
+                {selected?.description}
+              </p>
               <span
                 className="spotPrice"
                 style={{ marginBottom: "20px" }}

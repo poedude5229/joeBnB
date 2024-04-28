@@ -28,9 +28,18 @@
   display: flex;
   flex-direction: column;
   /* justify-content: space-between; */
-  right: 150px;
-  top: 20px;
-  transition: ease;
+  right: 1px;
+  top: 130px;
+  background-color: white;
+  padding-right: 30px;
+  list-style: none;
+  gap: 4px;
+  padding-bottom: 3px;
+  text-align: center;
+  justify-content: center;
+  /* margin-right: 20px; */
+  /* transition: ease; */
+  z-index: 1;
   /* transition-duration: 2000ms; */
 }
 

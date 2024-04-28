@@ -9,24 +9,26 @@ function UpdateSpot() {
   const dispatch = useDispatch();
   const { spotId } = useParams();
   const sessionUser = useSelector((state) => state.session.user);
-  const spot = useSelector((state) => state.spots[spotId]);
+  let spot;
+  useEffect(() => {
+    dispatch(spotDetails(spotId));
+  }, [dispatch, spotId]);
+
+   spot = useSelector((state) => state.spots[spotId]);
   // let images = spot?.SpotImages;
   // console.log(images);
   const [address, setAddress] = useState(spot?.address);
   const [city, setCity] = useState(spot?.city);
   const [state, setState] = useState(spot?.state);
   const [country, setCountry] = useState(spot?.country);
-  const [lat, setLat] = useState(spot?.lat);
-  const [lng, setLng] = useState(spot?.lng);
+  const [lat] = useState(spot?.lat);
+  const [lng] = useState(spot?.lng);
   const [description, setDescription] = useState(spot?.description);
   const [name, setName] = useState(spot?.name);
   // const [description, setDescription] = useState()
   const [price, setPrice] = useState(spot?.price);
 
   const [errors, setErrors] = useState([]);
-  useEffect(() => {
-    dispatch(spotDetails(spotId));
-  }, [dispatch, spotId]);
 
   useEffect(() => {
     let errorArray = [];
@@ -76,7 +78,15 @@ function UpdateSpot() {
   };
 
   return (
-    <div>
+    <div
+      style={{
+        marginLeft: "auto",
+        marginRight: "auto",
+        display: "flex",
+        flexDirection: "column",
+        width: "500px",
+      }}
+    >
       <h1>Update your Spot</h1>
       <form onSubmit={handleSubmit}>
         <section id="inputContainer">
@@ -85,7 +95,10 @@ function UpdateSpot() {
             Guests will only get your exact address once they booked a
             reservation
           </p>
-          <label htmlFor="Country">
+          <label
+            htmlFor="Country"
+            style={{ display: "flex", flexDirection: "column" }}
+          >
             Country
             <input
               id="Country"
@@ -96,9 +109,20 @@ function UpdateSpot() {
               onChange={(e) => setCountry(e.target.value)}
             />
           </label>
+          <p
+            style={{
+              color: "red",
+              backgroundColor: "rgb(0,0,0)",
+              width: "180px",
+            }}
+          >
+            {errors.filter((error) => error.includes("Country"))}
+          </p>
+          <hr />
           <div id="addressInputContainer">
             <label htmlFor="streetAddress">
               Street Address
+              <br />
               <input
                 type="text"
                 id="streetAddress"
@@ -119,51 +143,78 @@ function UpdateSpot() {
             >
               {errors.filter((error) => error.includes("Address"))}
             </p>
+            <hr />
           </div>
-          <label htmlFor="city">
-            City
-            <input
-              type="text"
-              id="city"
-              name="city"
-              placeholder="City"
-              value={city}
-              onChange={(e) => setCity(e.target.value)}
-            />
-          </label>
-          <label htmlFor="state">
-            State
-            <input
-              type="text"
-              id="state"
-              name="state"
-              placeholder="State"
-              value={state}
-              onChange={(e) => setState(e.target.value)}
-            />
-          </label>
-          <label htmlFor="latitude">
-            Latitude
-            <input
-              type="number"
-              id="latitude"
-              name="latitude"
-              placeholder="Latitude"
-              value={lat}
-              onChange={(e) => setLat(e.target.value)}
-            />
-          </label>
-          <label htmlFor="longitude">
-            Longitude
-            <input
-              type="number"
-              id="longitude"
-              name="longitude"
-              placeholder="Longitude"
-              value={lng}
-              onChange={(e) => setLng(e.target.value)}
-            />
-          </label>
+          <div style={{ display: "flex", gap: "40px" }}>
+            <label htmlFor="city">
+              City
+              <input
+                type="text"
+                id="city"
+                name="city"
+                placeholder="City"
+                value={city}
+                onChange={(e) => setCity(e.target.value)}
+                style={{ width: "300px" }}
+              />
+            </label>
+            <label htmlFor="state">
+              State
+              <input
+                type="text"
+                id="state"
+                name="state"
+                placeholder="State"
+                value={state}
+                onChange={(e) => setState(e.target.value)}
+              />
+            </label>
+          </div>
+          <div style={{ display: "flex", flexDirection: "row", gap: "8px" }}>
+            <p
+              style={{
+                backgroundColor: "rgb(0, 0, 0)",
+                color: "red",
+                width: "180px",
+              }}
+            >
+              {errors.filter((error) => error.includes("ity"))}
+            </p>
+            <p
+              style={{
+                backgroundColor: "rgb(0,0,0)",
+                color: "red",
+                width: "180px",
+              }}
+            >
+              {errors.filter((error) => error.includes("tate"))}
+            </p>
+          </div>
+          <hr />
+          {/* <div style={{ display: "flex", flexDirection: "row", gap: "24px" }}>
+            <label htmlFor="latitude">
+              Latitude
+              <input
+                type="number"
+                id="latitude"
+                name="latitude"
+                placeholder="Latitude"
+                value={lat}
+                onChange={(e) => setLat(e.target.value)}
+              />
+            </label>
+            <label htmlFor="longitude">
+              Longitude
+              <input
+                type="number"
+                id="longitude"
+                name="longitude"
+                placeholder="Longitude"
+                value={lng}
+                onChange={(e) => setLng(e.target.value)}
+              />
+            </label>
+          </div> */}
         </section>
         <section id="descriptionContainer">
           <h2>Describe your place to guests!</h2>
@@ -180,6 +231,15 @@ function UpdateSpot() {
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           ></textarea>
+          <p
+            style={{
+              backgroundColor: "rgb(0,0,0)",
+              color: "red",
+              width: "300px",
+            }}
+          >
+            {errors.filter((error) => error.includes("cription"))}
+          </p>
         </section>
         <section>
           <h2>Create a title for your spot</h2>
@@ -193,6 +253,15 @@ function UpdateSpot() {
             onChange={(e) => setName(e.target.value)}
             placeholder="Name of your spot"
           />
+          <p
+            style={{
+              color: "red",
+              backgroundColor: "rgb(0,0,0)",
+              width: "180px",
+            }}
+          >
+            {errors.filter((error) => error.includes("Name"))}
+          </p>
         </section>
         <section>
           <h2>Set a base price for your spot</h2>
@@ -289,7 +358,23 @@ function UpdateSpot() {
             </label> */}
         {/* </div> */}
         {/* </section> */}
-        <button>Update your Spot</button>
+        <hr />
+        <button
+          style={{
+            marginTop: "25px",
+            position: "relative",
+            left: "210px",
+            width: "130px",
+            height: "40px",
+            boxShadow: "2px 3px 5px #EAAA00",
+            backgroundColor: "#002855",
+            color: "#EAAA00",
+            fontSize: "1em",
+            cursor: "pointer"
+          }}
+        >
+          Update your Spot
+        </button>
       </form>
     </div>
   );
