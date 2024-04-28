@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAll } from "../../store/spots";
 import blankWVStar from "../../West_Virginia-512.png";
 import "./Homepage.css";
+
 const Homepage = () => {
   const dispatch = useDispatch();
 
@@ -28,7 +29,7 @@ const Homepage = () => {
                 />
                 <div className="spotInfo">
                   <span className="spotName">{`${spot.name}`}</span>
-                  <div className="spotLocation">{`${spot.city}, WV`}</div>
+                  <div className="spotLocation">{`${spot.city}, ${spot.state}`}</div>
 
                   <div className="price">{`$${spot.price}`}/ night</div>
                   <div className="stars">
