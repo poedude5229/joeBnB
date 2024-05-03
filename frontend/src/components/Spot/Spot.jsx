@@ -9,7 +9,7 @@ import MakeReview from "../Reviews/MakeReview";
 import "./modal.css";
 import "./Spot.css";
 import { FaStar } from "react-icons/fa";
-import missingimg from './missingimg.png'
+import missingimg from "./missingimg.png";
 function DetailsPage() {
   let { spotId } = useParams();
   let dispatch = useDispatch();
@@ -106,9 +106,7 @@ function DetailsPage() {
           >
             <img
               // style={{ width: "700px", height: "500px" }}
-              src={
-                selected?.SpotImages?.[0]?.url ||  missingimg
-              }
+              src={selected?.SpotImages?.[0]?.url}
               alt={`Spot ${spotId} preview image`}
               className="largeThumbnail"
             />
@@ -127,30 +125,22 @@ function DetailsPage() {
             >
               <img
                 style={{ width: "300px", height: "220px" }}
-                src={
-                  selected.SpotImages?.[1]?.url || missingimg
-                }
+                src={selected.SpotImages?.[1]?.url || missingimg}
                 alt="small spot picture one"
               />
               <img
                 style={{ width: "300px", height: "220px" }}
-                src={
-                  selected.SpotImages?.[2]?.url || missingimg
-                }
+                src={selected.SpotImages?.[2]?.url || missingimg}
                 alt="small spot picture 2"
               />
               <img
                 style={{ width: "300px", height: "220px" }}
-                src={
-                  selected.SpotImages?.[3]?.url || missingimg
-                }
+                src={selected.SpotImages?.[3]?.url || missingimg}
                 alt="small spot picture 3"
               />
               <img
                 style={{ width: "300px", height: "220px" }}
-                src={
-                  selected.SpotImages?.[4]?.url || missingimg
-                }
+                src={selected.SpotImages?.[4]?.url || missingimg}
                 alt="small spot picture 4"
               />
             </div>
